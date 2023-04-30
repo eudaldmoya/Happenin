@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 
-export default function AvatarBig({ image, number }) {
+export default function AvatarBig({ image }) {
    const [isActive, setIsActive] = useState(false);
   const [isActivated, setIsActivated] = useState("");
 
@@ -53,12 +53,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  numberImage: {
-    position: "absolute",
-  },
-  number: {
-    color: "white",
-    fontWeight: "500",
-  },
+  }
 });
