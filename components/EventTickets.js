@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   text: {
-    fontWeight: 400,
+    fontWeight: 300,
     fontSize: 16,
   },
   buyBtn: {

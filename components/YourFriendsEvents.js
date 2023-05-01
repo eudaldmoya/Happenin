@@ -7,11 +7,11 @@ export default function YourFriendsEvents() {
     <View style={styles.container}>
       <Text style={styles.title}>Your friends events</Text>
       <View style={styles.avatars}>
-         <AvatarBig image={require('../assets/person1.png')}/>
-         <AvatarBig image={require('../assets/person3.jpg')}/>
-         <AvatarBig image={require('../assets/person4.jpg')}/>
-         <AvatarBig />
-         <AvatarBig image={require('../assets/person5.jpg')}/>
+        <AvatarBig image={require("../assets/person1.png")} />
+        <AvatarBig image={require("../assets/person3.jpg")} />
+        <AvatarBig image={require("../assets/person4.jpg")} />
+        <AvatarBig />
+        <AvatarBig image={require("../assets/person5.jpg")} />
       </View>
     </View>
   );
@@ -19,23 +19,25 @@ export default function YourFriendsEvents() {
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     display: "flex",
     flexDirection: "column",
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    width: 300,
+    alignItems: "flex-start",
+    justifyContent: "center",
     gap: 10,
   },
   title: {
+    left: 0,
     fontWeight: "bold",
     //   fontFamily: "roboto",
     fontSize: 18,
   },
   avatars: {
-   display: 'flex',
-   flexDirection: 'row',
-   alignItems: 'center',
-   justifyContent: 'center',
-   gap: 30,
+    left: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 30,
   },
 });

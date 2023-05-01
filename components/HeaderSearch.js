@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     fontFamily: "Roboto",
     fontSize: 16,
-    color: "#D6D6D6",
+    color: "black",
   },
   searchIcon: {
     position: "absolute",

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
      fontSize: 28,
    },
    info: {
-    fontWeight: '400',
+    fontWeight: '300',
     fontSize: 14,
    },
  });

@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     gap: 15,
+    paddingLeft: 45,
   },
   avatarParent: {},
   comment: {

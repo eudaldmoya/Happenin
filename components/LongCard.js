@@ -3,17 +3,22 @@ import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
 const Body = ({ image, location, name, day, month }) => {
   return (
     <View style={styles.innerContainer}>
-      {image ? <Image style={styles.innerImg} source={image} />
-      : <Image style={styles.innerImg} source={require("../assets/placeholder.png")} />
-      }
+      {image ? (
+        <Image style={styles.innerImg} source={image} />
+      ) : (
+        <Image
+          style={styles.innerImg}
+          source={require("../assets/placeholder.png")}
+        />
+      )}
       <View style={styles.textWrapper}>
         <View style={styles.textInfo}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.location}>{location}</Text>
         </View>
         <View style={styles.dateContainer}>
-          <Text style={styles.date}>{day}</Text>
-          <Text style={styles.date}>{month}</Text>
+          <Text style={styles.date1}>{day}</Text>
+          <Text style={styles.date2}>{month}</Text>
         </View>
       </View>
     </View>
@@ -54,27 +59,39 @@ const styles = StyleSheet.create({
   },
   backImg: {
     height: 120,
+    width: 340,
     tintColor: "gray",
     borderRadius: 20,
   },
   name: {
     color: "white",
     fontWeight: "bold",
+    ellipsizeMode: "middle",
     fontSize: 16,
   },
   location: {
     color: "white",
     ellipsizeMode: "middle",
-    fontSize: 14,
+    fontSize: 12,
+    fontWeight: 300,
     flexShrink: 1,
   },
-  date: {
+  date1: {
     color: "white",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: 22,
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+  date2: {
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 18,
     fontWeight: "bold",
   },
   innerContainer: {
@@ -82,12 +99,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   filter: {
-    flex: 1,
-    width: 340,
-    height: 120,
-    position: "absolute",
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: "black",
-    opacity: 0.6,
+    opacity: 0.66,
     borderRadius: 20,
   },
   textWrapper: {
