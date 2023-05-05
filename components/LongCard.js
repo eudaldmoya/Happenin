@@ -4,7 +4,7 @@ const Body = ({ image, location, name, day, month }) => {
   return (
     <View style={styles.innerContainer}>
       {image ? (
-        <Image style={styles.innerImg} source={image} />
+        <Image style={styles.innerImg}  source={image} />
       ) : (
         <Image
           style={styles.innerImg}

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     shadowColor: "#00000050",
     elevation: 5,
     gap: 15,
-    width: 'auto',
+    width: '90%',
   },
   text: {
     fontWeight: 300,

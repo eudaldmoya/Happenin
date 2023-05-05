@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, View } from "react-native";
 
 import { ScrollView } from "react-native";
-import { getRandomEvent } from "../api";
+import { bcnEvents, getRandomEvent } from "../api";
 import Comments from "../components/Comments";
 import DetailsScreen from "../components/DetailsScreen";
 import EventPopup from "../components/EventPopup";
@@ -26,13 +26,30 @@ export default function HomeScreen() {
     getRandomEvent().then(setEvent);
   }, []);
 
+  const [bcnEv, setBcnEv] = useState([]);
+
+  useEffect(() => {
+    bcnEvents().then(setBcnEv);
+  }, []);
+
+  let eventSquares = [];
+
+  for (let i = 0; i < 6; i++) {
+    eventSquares.push(
+      <View key={i}>
+        {/* <EventsSquare name={bcnEv._embedded.events[i].name} /> */}
+        {/* <EventsSquare name='name event' /> */}
+      </View>
+    );
+  }
+
   return (
     <ScrollView>
       <HeaderHome />
       <View style={styles.container}>
         <FeedCard />
         <View style={styles.events}>
-          <EventsSquare
+          {/* <EventsSquare
             image={require("../assets/image.jpeg")}
             name="Primavera Sound"
           />
@@ -40,7 +57,9 @@ export default function HomeScreen() {
           <EventsSquare
             image={require("../assets/madcool.jpeg")}
             name="Mad Cool"
-          />
+          /> */}
+          {eventSquares}
+          
         </View>
         <View style={styles.tags}>
           <Tags tagName={"Music"} />

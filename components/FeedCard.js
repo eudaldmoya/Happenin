@@ -1,23 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import FeedCardPerson from "./FeedCardPerson";
 import JoinBtn from "./JoinBtn";
 import LikeBtn from "./LikeBtn";
 import LongCard from "./LongCard";
 import ShareBtn from "./ShareBtn";
+import { getRandomEvent } from "../api";
 
 export default function FeedCard() {
+
+  const [event, setEvent] = useState([]);
+
+  useEffect(() => {
+    getRandomEvent().then(setEvent);
+  }, []);
+
+  // let date = event.dates.start.localDate;
+  // let dayNumber = new Date(date).getDate();
+  // let month = new Date(date)
+  // let monthName = month.toLocaleString('default', {month: 'short'}).toUpperCase();
 
   return (
     <View style={styles.container}>
       <FeedCardPerson name={'Marc López'} image={require('../assets/person4.jpg')} />
       <View>
         <LongCard
-         image={require('../assets/vidarecords.jpg')}
-          name="Vida Records Festival"
-          location="Parc Del Fòrum, Barcelona"
-          day="29"
-          month="MAR"
+          // image={{uri:event.images[0].url}}
+          name={event.name}
+          // location={event._embedded.venues[0].name + ', ' + event._embedded.venues[0].city.name}
+          // day={dayNumber}
+          // month={monthName}
         />
       </View>
       <View style={styles.buttons}>
