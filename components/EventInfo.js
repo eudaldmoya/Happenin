@@ -14,7 +14,6 @@ export default function EventInfo({title, location, date}) {
 const styles = StyleSheet.create({
    title: {
      fontWeight: "bold",
-   //   fontFamily: "roboto",
      fontSize: 28,
    },
    info: {

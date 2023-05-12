@@ -18,27 +18,29 @@ import Tags from "../components/Tags";
 import YourFriendsEvents from "../components/YourFriendsEvents";
 import { useEffect, useState } from "react";
 import LongCard from "../components/LongCard";
+import { ActivityIndicator } from "react-native";
 
 export default function HomeScreen() {
   const [event, setEvent] = useState([]);
+  const [bcnEv, setBcnEv] = useState(null);
 
   useEffect(() => {
     getRandomEvent().then(setEvent);
   }, []);
-
-  const [bcnEv, setBcnEv] = useState([]);
-
+  
   useEffect(() => {
     bcnEvents().then(setBcnEv);
   }, []);
 
-  let eventSquares = [];
+  if (bcnEv === null) {
+    return <ActivityIndicator size="large" color={"blue"} />;
+  }
 
-  for (let i = 0; i < 6; i++) {
+  let eventSquares = [];
+  for (let i = 0; i < bcnEv.length; i++) {
     eventSquares.push(
       <View key={i}>
-        {/* <EventsSquare name={bcnEv._embedded.events[i].name} /> */}
-        {/* <EventsSquare name='name event' /> */}
+        <EventsSquare name={bcnEv[i].name} />
       </View>
     );
   }
@@ -47,19 +49,9 @@ export default function HomeScreen() {
     <ScrollView>
       <HeaderHome />
       <View style={styles.container}>
-        <FeedCard />
+        <FeedCard avatarName={'Marc López'}/>
         <View style={styles.events}>
-          {/* <EventsSquare
-            image={require("../assets/image.jpeg")}
-            name="Primavera Sound"
-          />
-          <EventsSquare name={event.name} />
-          <EventsSquare
-            image={require("../assets/madcool.jpeg")}
-            name="Mad Cool"
-          /> */}
           {eventSquares}
-          
         </View>
         <View style={styles.tags}>
           <Tags tagName={"Music"} />
@@ -67,14 +59,12 @@ export default function HomeScreen() {
           <Tags tagName={"Family"} />
         </View>
         <LongCard
-          image={require("../assets/vidarecords.jpg")}
           name="Vida Records Festival"
           location="Parc Del Fòrum, Barcelona"
           day="29"
           month="MAR"
         />
         <LongCard
-          image={require("../assets/madcool.jpeg")}
           name="Mad Cool"
           location="Caja Mágica, Madrid"
           day="6"

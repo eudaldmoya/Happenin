@@ -1,10 +1,11 @@
 import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
 
 const Body = ({ image, location, name, day, month }) => {
+
   return (
     <View style={styles.innerContainer}>
       {image ? (
-        <Image style={styles.innerImg}  source={image} />
+        <Image style={styles.innerImg}  src={image} />
       ) : (
         <Image
           style={styles.innerImg}
@@ -31,7 +32,7 @@ export default function LongCard(props) {
       <ImageBackground
         style={styles.backImg}
         imageStyle={{ borderRadius: 20 }}
-        source={props.image}
+        src={props.image}
       >
         <View style={styles.filter}></View>
         <Body {...props} />
@@ -66,12 +67,10 @@ const styles = StyleSheet.create({
   name: {
     color: "white",
     fontWeight: "bold",
-    ellipsizeMode: "middle",
     fontSize: 16,
   },
   location: {
     color: "white",
-    ellipsizeMode: "middle",
     fontSize: 12,
     fontWeight: 300,
     flexShrink: 1,

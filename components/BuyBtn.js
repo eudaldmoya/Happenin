@@ -32,8 +32,6 @@ const styles = StyleSheet.create({
   },
   joinText: {
     color: "#67E5BF",
-    // ios: { fontFamily: "Arial" },
-    // android: { fontFamily: "Roboto" },
     fontWeight: "regular",
     textAlign: "center",
   },

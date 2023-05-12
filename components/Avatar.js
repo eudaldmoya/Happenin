@@ -3,26 +3,22 @@ import { View, Text, Image, StyleSheet } from "react-native";
 export default function Avatar({ image, number }) {
   if (image) {
     return (
-      <View style={styles.avatarContainer}>
-        <Image style={styles.circular} source={image} />
-      </View>
+      <Image style={styles.circular} source={image} />
     );
   } else if (number) {
     return (
-      <View style={styles.avatarContainer}>
       <View style={styles.numberPeople}>
         <Image style={styles.numberImage} />
         <Text style={styles.number}>+{number}</Text>
-      </View>
       </View>
     );
   } else {
     return (
       <View style={styles.avatarContainer}>
-      <Image
-        style={styles.circular}
-        source={require("../assets/profile-placeholder.png")}
-      />
+        <Image
+          style={styles.circular}
+          source={require("../assets/profile-placeholder.png")}
+        />
       </View>
     );
   }
@@ -30,9 +26,6 @@ export default function Avatar({ image, number }) {
 
 const size = 40;
 const styles = StyleSheet.create({
-   avatarContainer:{
-      marginLeft: -10,
-   },
   circular: {
     width: size,
     height: size,

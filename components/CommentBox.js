@@ -7,8 +7,6 @@ export default function CommentBox() {
     <View>
       <TextInput
         style={styles.input}
-        //   onChangeText={onChangeNumber}
-        //   value={number}
         placeholder="Write something..."
         keyboardType="default"
       />

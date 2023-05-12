@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       paddingLeft: 10,
+      gap: -10,
    }
 })

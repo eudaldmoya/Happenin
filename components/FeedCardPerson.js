@@ -2,12 +2,12 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Avatar from "./Avatar";
 
-export default function FeedCardPerson({name, image}) {
+export default function FeedCardPerson({avatarName, imageAvatar}) {
   return (
     <View style={styles.avatarParent}>
-      <Avatar image={image} />
+      <Avatar image={imageAvatar} />
       <View style={styles.avatarName}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{avatarName}</Text>
         <Text style={styles.text}>is going to this concert</Text>
       </View>
     </View>
