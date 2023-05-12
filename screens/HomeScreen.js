@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native";
 import { bcnEvents, getRandomEvent } from "../api";
 import Comments from "../components/Comments";
-import DetailsScreen from "../components/DetailsScreen";
+import EventDetailsScreenTitle from "../components/EventDetailsScreenTitle";
 import EventPopup from "../components/EventPopup";
 import EventsSquare from "../components/EventsSquare";
 import FeedCard from "../components/FeedCard";
@@ -27,66 +27,83 @@ export default function HomeScreen() {
   useEffect(() => {
     getRandomEvent().then(setEvent);
   }, []);
-  
+
   useEffect(() => {
     bcnEvents().then(setBcnEv);
   }, []);
 
-  if (bcnEv === null) {
+  if (event === null || bcnEv === null) {
     return <ActivityIndicator size="large" color={"blue"} />;
-  }
+  } else {
+    let eventSquares = [];
+    for (let i = 0; i < bcnEv.length; i++) {
+      eventSquares.push(
+        <View key={i}>
+          <EventsSquare name={bcnEv[i].name} />
+        </View>
+      );
+    }
 
-  let eventSquares = [];
-  for (let i = 0; i < bcnEv.length; i++) {
-    eventSquares.push(
-      <View key={i}>
-        <EventsSquare name={bcnEv[i].name} />
-      </View>
+    let date = event.dates.start.localDate;
+    let dayNumber = new Date(date).getDate();
+    let month = new Date(date);
+    let monthName = month
+      .toLocaleString("default", { month: "short" })
+      .toUpperCase();
+
+    return (
+      <ScrollView>
+        <HeaderHome />
+        <View style={styles.container}>
+          <FeedCard
+            avatarName={"Marc López"}
+            imageAvatar={""}
+            image={event.images[0].url}
+            name={event.name}
+            location={
+              event._embedded.venues[0].name +
+              ", " +
+              event._embedded.venues[0].city.name
+            }
+            day={dayNumber}
+            month={monthName}
+          />
+          <View style={styles.events}>{eventSquares}</View>
+          <View style={styles.tags}>
+            <Tags tagName={"Music"} />
+            <Tags tagName={"Festivals"} />
+            <Tags tagName={"Family"} />
+          </View>
+          <LongCard
+            name="Vida Records Festival"
+            location="Parc Del Fòrum, Barcelona"
+            day="29"
+            month="MAR"
+          />
+          <LongCard
+            name="Mad Cool"
+            location="Caja Mágica, Madrid"
+            day="6"
+            month="JUL"
+          />
+          <HeaderFriendProfile
+            image={require("../assets/profile.jpg")}
+            name={"Eudald Moya"}
+            age={23}
+            country={"Spain"}
+          />
+          <JoinBtn />
+          <LikeBtn />
+          {/* <YourFriendsEvents /> */}
+          <EventDetailsScreenTitle />
+          <PeopleGoingEvent />
+          <InfoBtn />
+          <EventPopup />
+          <Comments />
+        </View>
+      </ScrollView>
     );
   }
-
-  return (
-    <ScrollView>
-      <HeaderHome />
-      <View style={styles.container}>
-        <FeedCard avatarName={'Marc López'}/>
-        <View style={styles.events}>
-          {eventSquares}
-        </View>
-        <View style={styles.tags}>
-          <Tags tagName={"Music"} />
-          <Tags tagName={"Festivals"} />
-          <Tags tagName={"Family"} />
-        </View>
-        <LongCard
-          name="Vida Records Festival"
-          location="Parc Del Fòrum, Barcelona"
-          day="29"
-          month="MAR"
-        />
-        <LongCard
-          name="Mad Cool"
-          location="Caja Mágica, Madrid"
-          day="6"
-          month="JUL"
-        />
-        <HeaderFriendProfile
-          image={require("../assets/profile.jpg")}
-          name={"Eudald Moya"}
-          age={23}
-          country={"Spain"}
-        />
-        <JoinBtn />
-        <LikeBtn />
-        <YourFriendsEvents />
-        <DetailsScreen />
-        <PeopleGoingEvent />
-        <InfoBtn />
-        <EventPopup />
-        <Comments />
-      </View>
-    </ScrollView>
-  );
 }
 
 const styles = StyleSheet.create({
