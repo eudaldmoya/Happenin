@@ -16,7 +16,19 @@ export const getRandomEvent = async () => {
 export const bcnEvents = async () => {
   try {
     const response = await fetch(
-      `${API_ROOT}.json?apikey=${API_KEY}&city=Barcelona&countryCode=ES&classificationName=music&sort=date,asc&size=5`
+      `${API_ROOT}.json?apikey=${API_KEY}&city=Barcelona&countryCode=ES&classificationName=music&sort=date,asc&size=10`
+    );
+    const bcnEvent = await response.json();
+    return bcnEvent._embedded.events;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const suggestEvent = async () => {
+  try {
+    const response = await fetch(
+      `${API_ROOT}.json?apikey=${API_KEY}&classificationName=music&sort=date,asc&size=5`
     );
     const bcnEvent = await response.json();
     return bcnEvent._embedded.events;

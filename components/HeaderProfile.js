@@ -14,7 +14,6 @@ export default function HeaderProfile({ image, name, age, country }) {
           {age}, {country}
         </Text>
       </View>
-      <EvilIcons name="gear" size={30} color="white" style={styles.edit}/>
     </View>
   );
 }
@@ -48,10 +47,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "white",
     fontWeight: 500,
-  },
-  edit: {
-    position: "absolute",
-    top: Constants.statusBarHeight + 30,
-    right: 30,
   },
 });

@@ -1,7 +1,8 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 
-import { ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { bcnEvents, getRandomEvent } from "../api";
 import Comments from "../components/Comments";
 import EventDetailsScreenTitle from "../components/EventDetailsScreenTitle";
@@ -10,15 +11,11 @@ import EventsSquare from "../components/EventsSquare";
 import FeedCard from "../components/FeedCard";
 import HeaderFriendProfile from "../components/HeaderFriendProfile";
 import HeaderHome from "../components/HeaderHome";
-import InfoBtn from "../components/InfoBtn";
 import JoinBtn from "../components/JoinBtn";
 import LikeBtn from "../components/LikeBtn";
+import LongCard from "../components/LongCard";
 import PeopleGoingEvent from "../components/PeopleGoingEvent";
 import Tags from "../components/Tags";
-import YourFriendsEvents from "../components/YourFriendsEvents";
-import { useEffect, useState } from "react";
-import LongCard from "../components/LongCard";
-import { ActivityIndicator } from "react-native";
 
 export default function HomeScreen() {
   const [event, setEvent] = useState([]);
@@ -94,10 +91,8 @@ export default function HomeScreen() {
           />
           <JoinBtn />
           <LikeBtn />
-          {/* <YourFriendsEvents /> */}
           <EventDetailsScreenTitle />
           <PeopleGoingEvent />
-          <InfoBtn />
           <EventPopup />
           <Comments />
         </View>

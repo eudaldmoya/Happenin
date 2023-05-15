@@ -3,9 +3,18 @@ import LikeBtn from './LikeBtn';
 
 export default function EventsSquare({ image, name }) {  
 
+  if(name.length >= 30){
+    var str = name;
+    var res = str.substring(0, 30);
+
+    name = res + '...';
+  } else if(name.length < 30){
+    name = name;
+  }
+
   if (image) {
     return (
-      <ImageBackground style={styles.container} source={image} imageStyle={{borderRadius: 20}}>
+      <ImageBackground style={styles.container} src={image} imageStyle={{borderRadius: 20}}>
         <View style={styles.background}></View>
         <LikeBtn />
         <Text style={styles.title}>{name}</Text>
