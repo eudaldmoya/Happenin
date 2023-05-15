@@ -1,13 +1,16 @@
 import { AntDesign } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import HomeScreen from "./screens/HomeScreen";
 import LikesScreen from "./screens/LikesScreen";
+import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import SearchScreen from "./screens/SearchScreen";
 
 const BottomTabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 function BottomTabNavigator() {
   return (
@@ -47,10 +50,17 @@ function BottomTabNavigator() {
   );
 }
 
+
 export default function App() {
   return (
     <NavigationContainer>
-      <BottomTabNavigator />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Bottom Nav" component={BottomTabNavigator} />
+      </Stack.Navigator>
     </NavigationContainer>
+    // <NavigationContainer>
+    //   <BottomTabNavigator />
+    // </NavigationContainer>
   );
 }

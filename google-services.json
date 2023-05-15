@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190271292740",
+    "project_id": "happenin-1d4b4",
+    "storage_bucket": "happenin-1d4b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190271292740:android:4cf1ed1763de02d96fc311",
+        "android_client_info": {
+          "package_name": "com.hpn.happenin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190271292740-5h0qrr4fduqsd71kosia4epcuuvn31r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBElKs5-3HOTBI2qYoCWg8f61iAoetaiGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190271292740-5h0qrr4fduqsd71kosia4epcuuvn31r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
