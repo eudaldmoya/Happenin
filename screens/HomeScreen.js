@@ -65,13 +65,13 @@ export default function HomeScreen() {
             day={dayNumber}
             month={monthName}
           /> */}
-          <View style={styles.events}>{eventSquares}</View>
-          <View style={styles.tags}>
+          {/* <View style={styles.events}>{eventSquares}</View> */}
+          {/* <View style={styles.tags}>
             <Tags tagName={"Music"} />
             <Tags tagName={"Festivals"} />
             <Tags tagName={"Family"} />
-          </View>
-          <LongCard
+          </View> */}
+          {/* <LongCard
             name="Vida Records Festival"
             location="Parc Del Fòrum, Barcelona"
             day="29"
@@ -94,7 +94,7 @@ export default function HomeScreen() {
           <EventDetailsScreenTitle />
           <PeopleGoingEvent />
           <EventPopup />
-          <Comments />
+          <Comments /> */}
         </View>
       </ScrollView>
     );

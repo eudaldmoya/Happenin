@@ -3,16 +3,12 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Pressable, Text } from "react-native";
 
-const LikeBtn = () => {
+const LikeBtn = ({setLike}) => {
   const [isLiked, setIsLiked] = useState(false);
-  // const [isJoin, setIsJoin] = useState("noLike");
 
   const toggleSwitch = () => {
     setIsLiked((previousState) => !previousState);
-    // setIsJoin(isLiked ? "noLike" : "like");
   };
-
-  // console.log(isJoin);
 
   return (
     <Pressable onPress={toggleSwitch}>
