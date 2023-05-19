@@ -1,14 +1,14 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import LikeBtn from "./LikeBtn";
 
-export default function EventsSquare({ eventId, image, name }) {
+export default function EventsSquare({ eventId, image, name, location, city, description, date }) {
   if (name.length >= 36) {
     var str = name;
     var res = str.substring(0, 36);
 
-    name = res + "...";
+    nameCut = res + "...";
   } else if (name.length < 36) {
-    name = name;
+    nameCut = name;
   }
   if (image) {
     return (
@@ -18,8 +18,16 @@ export default function EventsSquare({ eventId, image, name }) {
         imageStyle={{ borderRadius: 20 }}
       >
         <View style={styles.background}></View>
-        <LikeBtn eventId={eventId} />
-        <Text style={styles.title}>{name}</Text>
+        <LikeBtn 
+        eventId={eventId} 
+        image={image}
+        name={name}
+        // location={location}
+        // city={city}
+        // description={description}
+        // date={date}
+        />
+        <Text style={styles.title}>{nameCut}</Text>
       </ImageBackground>
     );
   } else {
@@ -30,8 +38,16 @@ export default function EventsSquare({ eventId, image, name }) {
         imageStyle={{ borderRadius: 20 }}
       >
         <View style={styles.background}></View>
-        <LikeBtn eventId={eventId}/>
-        <Text style={styles.title}>{name}</Text>
+        <LikeBtn 
+         eventId={eventId} 
+         image={image}
+         name={name}
+        //  location={location}
+        //  city={city}
+        //  description={description}
+        //  date={date}
+        />
+        <Text style={styles.title}>{nameCut}</Text>
       </ImageBackground>
     );
   }

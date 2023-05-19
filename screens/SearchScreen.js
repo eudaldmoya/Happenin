@@ -61,11 +61,17 @@ export default function SearchScreen() {
     let eventSquare2 = [];
     for (let i = 0; i < eventSug.length; i++) {
       if (i == eventSug.length - 1) {
+        console.log(`${categEvent[i].name}`);
         eventSquares.push(
           <View key={i} style={{ marginRight: 20, paddingRight: 20 }}>
             <EventsSquare
-              name={eventSug[i].name}
-              image={eventSug[i].images[0].url}
+              eventId={categEvent[i].id}
+              name={categEvent[i].name}
+              image={categEvent[i].images[0].url}
+              // location={categEvent[i]._embedded.venues[0].name}
+              // city={categEvent[i]._embedded.venues[0].city.name}
+              // date={categEvent[i].dates.start.localDate}
+              // description={categEvent[i].info}
             />
           </View>
         );
@@ -73,8 +79,13 @@ export default function SearchScreen() {
         eventSquares.push(
           <View key={i} style={{ marginRight: 20 }}>
             <EventsSquare
-              name={eventSug[i].name}
-              image={eventSug[i].images[0].url}
+              eventId={categEvent[i].id}
+              name={categEvent[i].name}
+              image={categEvent[i].images[0].url}
+              // location={categEvent[i]._embedded.venues[0].name}
+              // city={categEvent[i]._embedded.venues[0].city.name}
+              // date={categEvent[i].dates.start.localDate}
+              // description={categEvent[i].info}
             />
           </View>
         );
@@ -89,6 +100,10 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
+              // location={categEvent[i]._embedded.venues[0].name}
+              // city={categEvent[i]._embedded.venues[0].city.name}
+              // date={categEvent[i].dates.start.localDate}
+              // description={categEvent[i].info}
             />
           </View>
         );
@@ -96,8 +111,13 @@ export default function SearchScreen() {
         eventSquare2.push(
           <View key={i} style={{ marginRight: 20 }}>
             <EventsSquare
+              eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
+              // location={categEvent[i]._embedded.venues[0].name}
+              // city={categEvent[i]._embedded.venues[0].city.name}
+              // date={categEvent[i].dates.start.localDate}
+              // description={categEvent[i].info}
             />
           </View>
         );
@@ -181,7 +201,7 @@ export default function SearchScreen() {
       return (
         <View style={styles.resultsList}>
           <HeaderSearch onSearch={handleSearch} />
-          <SearchResults searchText={searchTerm}/>
+          <SearchResults searchText={searchTerm} />
         </View>
       );
     }
@@ -223,7 +243,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
   },
-  resultsList:{
+  resultsList: {
     marginBottom: 240 + Constants.statusBarHeight,
     paddingTop: 20,
     bottom: 20,
