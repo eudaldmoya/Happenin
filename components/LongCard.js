@@ -1,6 +1,15 @@
-import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
+import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 
 const Body = ({ image, location, name, day, month }) => {
+
+  if (name.length >= 30) {
+    var str = name;
+    var res = str.substring(0, 30);
+
+    name = res + "...";
+  } else {
+    name = name;
+  }
 
   return (
     <View style={styles.innerContainer}>
@@ -57,6 +66,7 @@ const styles = StyleSheet.create({
     height: 120,
     width: 120,
     borderRadius: 20,
+    overflow: 'hidden',
   },
   backImg: {
     height: 120,
@@ -100,7 +110,7 @@ const styles = StyleSheet.create({
   filter: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "black",
-    opacity: 0.66,
+    opacity: 0.8,
     borderRadius: 20,
   },
   textWrapper: {
@@ -114,7 +124,7 @@ const styles = StyleSheet.create({
     maxWidth: 140,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "flex-start",
     paddingLeft: 10,
   },

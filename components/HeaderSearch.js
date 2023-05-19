@@ -1,13 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import Constants from "expo-constants";
-import { TextInput } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
+import Constants from "expo-constants";
+import React, { useState } from "react";
+import { StyleSheet, TextInput, View } from "react-native";
 
-export default function HeaderSearch() {
+export default function HeaderSearch({ onSearch }) {
+  const [text, setText] = useState("");
+
+  const handleSearch = () => {
+    onSearch(text);
+  };
+
+  const handleKeyPress = ({ nativeEvent }) => {
+    if (nativeEvent.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Search" style={styles.searchBox} />
+      <TextInput
+        style={styles.searchBox}
+        value={text}
+        onChangeText={setText}
+        onSubmitEditing={handleSearch}
+        placeholder="Search..."
+        returnKeyType="search"
+        onKeyPress={handleKeyPress}
+      />
       <EvilIcons name="search" style={styles.searchIcon} size={24} />
     </View>
   );
@@ -19,7 +38,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    marginBottom: 20,
     paddingTop: Constants.statusBarHeight + 20,
   },
   searchBox: {

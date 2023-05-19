@@ -32,6 +32,13 @@ export default function HomeScreen() {
   if (event === null || bcnEv === null) {
     return <ActivityIndicator size="large" color={"blue"} />;
   } else {
+    // let date = event.dates.start.localDate;
+    // let dayNumber = new Date(date).getDate();
+    // let month = new Date(date);
+    // let monthName = month
+    //   .toLocaleString("default", { month: "short" })
+    //   .toUpperCase();
+
     let eventSquares = [];
     for (let i = 0; i < bcnEv.length; i++) {
       eventSquares.push(
@@ -41,18 +48,11 @@ export default function HomeScreen() {
       );
     }
 
-    let date = event.dates.start.localDate;
-    let dayNumber = new Date(date).getDate();
-    let month = new Date(date);
-    let monthName = month
-      .toLocaleString("default", { month: "short" })
-      .toUpperCase();
-
     return (
       <ScrollView>
         <HeaderHome />
         <View style={styles.container}>
-          <FeedCard
+          {/* <FeedCard
             avatarName={"Marc López"}
             imageAvatar={""}
             image={event.images[0].url}
@@ -64,14 +64,14 @@ export default function HomeScreen() {
             }
             day={dayNumber}
             month={monthName}
-          />
-          <View style={styles.events}>{eventSquares}</View>
-          <View style={styles.tags}>
+          /> */}
+          {/* <View style={styles.events}>{eventSquares}</View> */}
+          {/* <View style={styles.tags}>
             <Tags tagName={"Music"} />
             <Tags tagName={"Festivals"} />
             <Tags tagName={"Family"} />
-          </View>
-          <LongCard
+          </View> */}
+          {/* <LongCard
             name="Vida Records Festival"
             location="Parc Del Fòrum, Barcelona"
             day="29"
@@ -94,7 +94,7 @@ export default function HomeScreen() {
           <EventDetailsScreenTitle />
           <PeopleGoingEvent />
           <EventPopup />
-          <Comments />
+          <Comments /> */}
         </View>
       </ScrollView>
     );

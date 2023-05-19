@@ -1,18 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 import { initializeApp } from "firebase/app";
-import { useState } from "react";
-import { firebaseConfig } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Button, ScrollView, TextInput, Text, View, Alert } from "react-native";
+import { useState } from "react";
+import { Alert, Button, ScrollView, Text, TextInput, View } from "react-native";
+import { app } from "../firebaseConfig";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
   
-    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-  
+
+
     const handleCreateAccount = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -27,16 +27,16 @@ export default function LoginScreen() {
     };
   
     const handleSignIn = () => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("Signed in");
-          const user = userCredential.user;
-          console.log(user);
-          navigation.navigate('Bottom Nav');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            console.log("Signed in");
+            const user = userCredential.user;
+            console.log(user);
+            navigation.navigate('Bottom Nav');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     };
     return (
       <View>
