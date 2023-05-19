@@ -2,9 +2,9 @@ import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 
 const Body = ({ image, location, name, day, month }) => {
 
-  if (name.length >= 45) {
+  if (name.length >= 30) {
     var str = name;
-    var res = str.substring(0, 45);
+    var res = str.substring(0, 30);
 
     name = res + "...";
   } else {

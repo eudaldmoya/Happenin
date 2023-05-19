@@ -12,19 +12,11 @@ const SearchResults = ({ searchText }) => {
     }
   }, [searchText]);
 
-  const getDayNumber = (dateString) => {
-    const date = new Date(dateString);
-    return date.getDate();
-  };
-
-  const getMonthName = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("default", { month: "short" }).toUpperCase();
-  };
+  let emptyVenue = "";
 
   if (!searchResults || searchResults === null || searchResults === undefined) {
-    return(
-    <View style={styles.results}>
+    return (
+      <View style={styles.results}>
         <View style={styles.resultsText}>
           <Text>There are no results for </Text>
           <Text style={styles.resultsBold}>"{searchText}"</Text>
@@ -33,6 +25,16 @@ const SearchResults = ({ searchText }) => {
       </View>
     );
   } else {
+    const getDayNumber = (dateString) => {
+      const date = new Date(dateString);
+      return date.getDate();
+    };
+
+    const getMonthName = (dateString) => {
+      const date = new Date(dateString);
+      return date.toLocaleString("default", { month: "short" }).toUpperCase();
+    };
+
     return (
       <View style={styles.results}>
         <View style={styles.resultsText}>
@@ -44,18 +46,20 @@ const SearchResults = ({ searchText }) => {
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <LongCard
-            image={item.images[0].url}
-            name={item.name}
-            location={
-              item._embedded.venues[0].name +
-              ", " +
-              item._embedded.venues[0].city.name
-            }
-            day={getDayNumber(item.dates.start.localDate)}
-            month={getMonthName(item.dates.start.localDate)}
+              image={item.images[0].url}
+              name={item.name}
+              location={
+                item._embedded?.venues?.[0]?.name
+                  ? item._embedded?.venues?.[0]?.name +
+                    ', ' +
+                    item._embedded?.venues?.[0]?.city.name
+                  : ''
+              }
+              day={getDayNumber(item.dates.start.localDate)}
+              month={getMonthName(item.dates.start.localDate)}
             />
-            )}
-            ItemSeparatorComponent={() => <View style={{padding: 10}} />}
+          )}
+          ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
           keyExtractor={(item) => item.id}
           style={styles.resultsList}
         />
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   results: {
-    display: 'flex',
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -85,9 +89,8 @@ const styles = StyleSheet.create({
   resultsBold: {
     fontWeight: "bold",
   },
-  resultsList:{
-    
-  }
+  resultsList: {
+  },
 });
 
 export default SearchResults;
