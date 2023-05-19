@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
-const Tags = ({tagName}) => {
-  const [isActive, setIsActive] = useState(false);
-  const [isActivated, setIsActivated] = useState("");
+const Tags = ({id, tagName, isActivated, setIsActivated}) => {
 
   const toggleSwitch = () => {
-   setIsActivated((previousState) => !previousState);
+    setIsActivated(id);
   };
-
-  console.log(isActive);
 
   return (
     <Pressable

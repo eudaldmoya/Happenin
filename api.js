@@ -13,9 +13,22 @@ export const getRandomEvent = async () => {
   }
 };
 
+export const searchEvents = async (searchTerm) => {
+  try {
+    const response = await fetch(
+      `${API_ROOT}.json?keyword=${searchTerm}&apikey=${API_KEY}&sort=relevance,desc&size=12`
+    );
+    const searchEvent = await response.json();
+    return searchEvent._embedded.events;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const bcnEvents = async () => {
   try {
     const response = await fetch(
+
       `${API_ROOT}.json?apikey=${API_KEY}&city=Barcelona&countryCode=ES&classificationName=music&sort=date,asc&size=10`
     );
     const bcnEvent = await response.json();
@@ -26,12 +39,32 @@ export const bcnEvents = async () => {
 };
 
 export const suggestEvent = async () => {
+  
   try {
     const response = await fetch(
-      `${API_ROOT}.json?apikey=${API_KEY}&classificationName=music&sort=date,asc&size=5`
+      `${API_ROOT}.json?apikey=${API_KEY}&countryCode=US&classificationName=miscellaneous&sort=relevance,desc&size=10`
     );
-    const bcnEvent = await response.json();
-    return bcnEvent._embedded.events;
+    const suggestEvent = await response.json();
+    return suggestEvent._embedded.events;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const catgoriesEvents = async (tagStates) => {
+  let music = tagStates[1] ? ',%20music' : '';
+  let sports = tagStates[2] ? ',%20sports' : '';
+  let arts = tagStates[3] ? ',%20arts&theatre' : '';
+  let family = tagStates[4] ? ',%20family' : '';
+  let attractions = tagStates[5] ? ',%20attractions' : '';
+  let festivals = tagStates[6] ? ',%20festivals' : '';
+
+  try {
+    const response = await fetch(
+      `${API_ROOT}.json?apikey=${API_KEY}&classificationName=comedy${music}${sports}${arts}${family}${attractions}${festivals}&sort=date,asc&size=10`
+    );
+    const catgoriesEvent = await response.json();
+    return catgoriesEvent._embedded.events;
   } catch (error) {
     console.log(error);
   }
