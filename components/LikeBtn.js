@@ -1,53 +1,103 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Pressable, Text } from "react-native";
 import { getAuth } from "firebase/auth";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDoc,
+  setDoc,
+  where,
+  deleteDoc,
+  collection,
+  query,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-const LikeBtn = ({ eventId, name, location, city, description, date }) => {
+const LikeBtn = ({
+  eventId,
+  name,
+  location,
+  city,
+  description,
+  date,
+  image,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
+  const user = getAuth().currentUser.uid;
+  
+//useEffect checks the correct value for the like button for each event
+//and sets it. (Not working yet)
+  /*useEffect(() => {
+    const checkEventLikeState = async () => {
+      const docRef = doc(
+        db,
+        "Likes",
+        where("userId", "==", user),
+        where("eventId", "==", eventId)
+      );
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()) {setIsLiked(true);}
+      setIsLiked(false);
+    };
+    checkEventLikeState();
+  }, []);*/
 
   const toggleSwitch = async () => {
-    const user = getAuth().currentUser.uid;
     setIsLiked((previousState) => !previousState);
     console.log(user);
     console.log(eventId);
-    
+
+    //Add Event to database if it doesn't exist 
     const docRef = doc(db, "Events", `${eventId}`);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
-      // await setDoc(doc(db, "Events", `${eventId}`), {
-      //   name: {name},
-      //   location: {location},
-      //   city: {city},
-      //   description: {description},
-      //   date: {date},
-      //   image: {image}
-      // });
+      await setDoc(doc(db, "Events", eventId), {
+        name: name,
+        //  location: {location},
+        //   city: {city},
+        description: !description ? "" : description,
+        date: date,
+        image: image,
+      });
     } else {
-      // docSnap.data() will be undefined in this case
-      console.log("Already there!");
+      console.log("Event already saved!");
     }
 
-    if(isLiked){
+//If user likes an event, a doc is added in likes list with userid and eventid
+    if (!isLiked) {
+      await addDoc(collection(db, "Likes"), {
+        eventId: eventId,
+        userId: user,
+      });
+      console.log("green");
+    } else { //If it is disliked, docs with that eventId and userId are deleted
+      const collectionRef = collection(db, "Likes");
+      const q = query(
+        collectionRef,
+        where("userId", "==", user),
+        where("eventId", "==", eventId)
+      );
+      try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          const docRef = doc.ref;
+          deleteDoc(docRef)
+            .then(() => {
+              console.log("Document successfully deleted!");
+            })
+            .catch((error) => {
+              console.error("Error deleting document: ", error);
+            });
+        });
+      } catch (error) {
+        console.error("Error getting documents: ", error);
+      }
 
+     console.log("nogreen");
     }
-    // const docRef = db.collection("Events").doc(`G5viZ9EL-apGx`);
-    // docRef.get().then((doc) => {
-    //   if (doc.exists) {
-    //     console.log("Document data:", doc.data());
-    // } else {
-    //     // doc.data() will be undefined in this case
-    //     console.log("No such document!");
-    // }
-    // }).catch((error) => {console.log(error)});
-
-
-    //const eventExists = query(eventsRef);
-    //console.log(`${eventExists} heeey`); 
-   
   };
 
   return (

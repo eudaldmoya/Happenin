@@ -61,17 +61,17 @@ export default function SearchScreen() {
     let eventSquare2 = [];
     for (let i = 0; i < eventSug.length; i++) {
       if (i == eventSug.length - 1) {
-        console.log(`${categEvent[i].name}`);
+        console.log(`${eventSug[i].name}`);
         eventSquares.push(
           <View key={i} style={{ marginRight: 20, paddingRight: 20 }}>
             <EventsSquare
-              eventId={categEvent[i].id}
-              name={categEvent[i].name}
-              image={categEvent[i].images[0].url}
-              // location={categEvent[i]._embedded.venues[0].name}
-              // city={categEvent[i]._embedded.venues[0].city.name}
-              // date={categEvent[i].dates.start.localDate}
-              // description={categEvent[i].info}
+              eventId={eventSug[i].id}
+              name={eventSug[i].name}
+              image={eventSug[i].images[0].url}
+              //location={!eventSug[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
+              //city={!eventSug[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              date={eventSug[i].dates.start.localDate}
+              description={eventSug[i].info}
             />
           </View>
         );
@@ -79,13 +79,13 @@ export default function SearchScreen() {
         eventSquares.push(
           <View key={i} style={{ marginRight: 20 }}>
             <EventsSquare
-              eventId={categEvent[i].id}
-              name={categEvent[i].name}
-              image={categEvent[i].images[0].url}
-              // location={categEvent[i]._embedded.venues[0].name}
-              // city={categEvent[i]._embedded.venues[0].city.name}
-              // date={categEvent[i].dates.start.localDate}
-              // description={categEvent[i].info}
+              eventId={eventSug[i].id}
+              name={eventSug[i].name}
+              image={eventSug[i].images[0].url}
+              //location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
+              //city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              date={eventSug[i].dates.start.localDate}
+              description={eventSug[i].info}
             />
           </View>
         );
@@ -100,10 +100,10 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
-              // location={categEvent[i]._embedded.venues[0].name}
-              // city={categEvent[i]._embedded.venues[0].city.name}
-              // date={categEvent[i].dates.start.localDate}
-              // description={categEvent[i].info}
+              //location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
+              //city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              date={categEvent[i].dates.start.localDate}
+              description={categEvent[i].info}
             />
           </View>
         );
@@ -114,10 +114,10 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
-              // location={categEvent[i]._embedded.venues[0].name}
-              // city={categEvent[i]._embedded.venues[0].city.name}
-              // date={categEvent[i].dates.start.localDate}
-              // description={categEvent[i].info}
+              //location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
+              //city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              date={categEvent[i].dates.start.localDate}
+              description={categEvent[i].info}
             />
           </View>
         );

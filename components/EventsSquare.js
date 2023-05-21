@@ -24,8 +24,8 @@ export default function EventsSquare({ eventId, image, name, location, city, des
         name={name}
         // location={location}
         // city={city}
-        // description={description}
-        // date={date}
+        description={description}
+        date={date}
         />
         <Text style={styles.title}>{nameCut}</Text>
       </ImageBackground>
@@ -44,8 +44,8 @@ export default function EventsSquare({ eventId, image, name, location, city, des
          name={name}
         //  location={location}
         //  city={city}
-        //  description={description}
-        //  date={date}
+        description={description}
+        date={date}
         />
         <Text style={styles.title}>{nameCut}</Text>
       </ImageBackground>
