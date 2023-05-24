@@ -15,6 +15,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { useDocument } from 'react-firebase-hooks/firestore';
 
 const LikeBtn = ({
   eventId,
@@ -25,11 +26,15 @@ const LikeBtn = ({
   date,
   image,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   const user = getAuth().currentUser.uid;
-  
-//useEffect checks the correct value for the like button for each event
-//and sets it. (Not working yet)
+  const [value, loading, error] = useDocument(doc(db, "Likes", where("userId", "==", user),
+    where("eventId", "==", eventId)));
+
+  const isLiked = value !== undefined;
+
+  //useEffect checks the correct value for the like button for each event
+  //and sets it. (Not working yet)
   /*useEffect(() => {
     const checkEventLikeState = async () => {
       const docRef = doc(
@@ -66,7 +71,7 @@ const LikeBtn = ({
       console.log("Event already saved!");
     }
 
-//If user likes an event, a doc is added in likes list with userid and eventid
+    //If user likes an event, a doc is added in likes list with userid and eventid
     if (!isLiked) {
       await addDoc(collection(db, "Likes"), {
         eventId: eventId,
@@ -96,7 +101,7 @@ const LikeBtn = ({
         console.error("Error getting documents: ", error);
       }
 
-     console.log("nogreen");
+      console.log("nogreen");
     }
   };
 

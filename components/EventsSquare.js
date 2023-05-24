@@ -1,7 +1,15 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import LikeBtn from "./LikeBtn";
 
+/*
+
+EventSnapshot - Component que crida useDocument amb l'eventId i utilitza EventsSquare per pintar.
+
+
+*/
+
 export default function EventsSquare({ eventId, image, name, location, city, description, date }) {
+  
   if (name.length >= 36) {
     var str = name;
     var res = str.substring(0, 36);

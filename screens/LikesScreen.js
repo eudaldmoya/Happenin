@@ -11,7 +11,7 @@ import EventsSquare from "../components/EventsSquare";
 export default function LikesScreen() {
   const [likesArray, setLikesArray] = useState(null);
   user = getAuth().currentUser.uid;
-  
+
 
   /*Al useEffect fa una primera consulta per agafar tots els likes que 
   corresponen a la sessió actual (A cada un d'aquests likes hi ha 
@@ -25,45 +25,43 @@ export default function LikesScreen() {
       const updatedLikes = [];
       querySnapshot.forEach(async (doc) => {
         const eventDocRef = doc(db, "Events", doc.id);
-        const eventDocSnapshot = getDoc(eventDocRef);
-        if( eventDocSnapshot.exists()){
-        const eventData = eventDocSnapshot.data();
-        const eventDetails = {
-          eventId: doc.id,
-          name: eventData.name,
-          image: eventData.image
+        // FIXME: Passar directament l'eventId a EventSnapshot i que s'ho foti ell, fer la query a dintre de eventsquare
+        const eventDocSnapshot = await getDoc(eventDocRef);
+        if (eventDocSnapshot.exists()) {
+          const eventData = eventDocSnapshot.data();
+          const eventDetails = {
+            eventId: doc.id,
+            name: eventData.name,
+            image: eventData.image
+          }
+          updatedLikes.push(eventDetails);
+          //He aconseguit fer la primera consulta i que a la pàgina de likes
+          //apareguin les ids dels events per fer la segona consulta, però
+          //no consegueixo fer que updatedLikes amb la segona consulta s'ompli.
         }
-        updatedLikes.push(eventDetails);
-        //He aconseguit fer la primera consulta i que a la pàgina de likes
-        //apareguin les ids dels events per fer la segona consulta, però
-        //no consegueixo fer que updatedLikes amb la segona consulta s'ompli.
-      }
       });
       setLikesArray(updatedLikes);
-      
+
     });
     // Cleanup function to unsubscribe from the snapshot listener
     return () => {
       unsubscribe();
     };
-}, []);
+  }, []);
 
-  if(likesArray === null){
-     return <NoEvents/>
+  if (likesArray === null) {
+    return <NoEvents />
   }
-     return (
-      
+  return (
     <ScrollView>
       <HeaderLikes />
       {console.log(likesArray)}
       <View style={styles.container}>
         {likesArray.map((event) => {
-         <EventsSquare
-         name = {event.name}
-         image={event.image}
-         />
-
-         
+          <EventsSquare
+            name={event.name}
+            image={event.image}
+          />
         })}
       </View>
     </ScrollView>
@@ -71,7 +69,7 @@ export default function LikesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
