@@ -29,7 +29,7 @@ export default function HomeScreen() {
     bcnEvents().then(setBcnEv);
   }, []);
 
-  if (event === null || bcnEv ===null ) {
+  if (event === null || bcnEv ===null || !bcnEv) {
     return <ActivityIndicator size="large" color={"blue"} />;
   } else {
     // let date = event.dates.start.localDate;

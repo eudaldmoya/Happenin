@@ -26,12 +26,12 @@ const LikeBtn = ({
   date,
   image,
 }) => {
-  // const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const user = getAuth().currentUser.uid;
-  const [value, loading, error] = useDocument(doc(db, "Likes", where("userId", "==", user),
-    where("eventId", "==", eventId)));
+  //const [value, loading, error] = useDocument(doc(db, "Likes", where("userId", "==", user),
+    //where("eventId", "==", eventId)));
 
-  const isLiked = value !== undefined;
+  //const isLiked = value !== undefined;
 
   //useEffect checks the correct value for the like button for each event
   //and sets it. (Not working yet)

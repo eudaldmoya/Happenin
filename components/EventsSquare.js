@@ -2,22 +2,28 @@ import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import LikeBtn from "./LikeBtn";
 
 /*
-
 EventSnapshot - Component que crida useDocument amb l'eventId i utilitza EventsSquare per pintar.
-
-
 */
 
-export default function EventsSquare({ eventId, image, name, location, city, description, date }) {
+export default function EventsSquare({
+  eventId,
+  image,
+  name,
+  location,
+  city,
+  description,
+  date,
+}) {
   
-  if (name.length >= 36) {
-    var str = name;
-    var res = str.substring(0, 36);
+    if (name.length >= 36) {
+      var str = name;
+      var res = str.substring(0, 36);
 
-    nameCut = res + "...";
-  } else if (name.length < 36) {
-    nameCut = name;
-  }
+      nameCut = res + "...";
+    } else if (name.length < 36) {
+      nameCut = name;
+    }
+  
   if (image) {
     return (
       <ImageBackground
@@ -26,14 +32,14 @@ export default function EventsSquare({ eventId, image, name, location, city, des
         imageStyle={{ borderRadius: 20 }}
       >
         <View style={styles.background}></View>
-        <LikeBtn 
-        eventId={eventId} 
-        image={image}
-        name={name}
-        // location={location}
-        // city={city}
-        description={description}
-        date={date}
+        <LikeBtn
+          eventId={eventId}
+          image={image}
+          name={name}
+          // location={location}
+          // city={city}
+          description={description}
+          date={date}
         />
         <Text style={styles.title}>{nameCut}</Text>
       </ImageBackground>
@@ -46,14 +52,14 @@ export default function EventsSquare({ eventId, image, name, location, city, des
         imageStyle={{ borderRadius: 20 }}
       >
         <View style={styles.background}></View>
-        <LikeBtn 
-         eventId={eventId} 
-         image={image}
-         name={name}
-        //  location={location}
-        //  city={city}
-        description={description}
-        date={date}
+        <LikeBtn
+          eventId={eventId}
+          image={image}
+          name={name}
+          //  location={location}
+          //  city={city}
+          description={description}
+          date={date}
         />
         <Text style={styles.title}>{nameCut}</Text>
       </ImageBackground>
