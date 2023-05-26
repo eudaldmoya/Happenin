@@ -13,6 +13,7 @@ import {
   collection,
   query,
   getDocs,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -26,29 +27,20 @@ const LikeBtn = ({
   date,
   image,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(null);
   const user = getAuth().currentUser.uid;
-  //const [value, loading, error] = useDocument(doc(db, "Likes", where("userId", "==", user),
-    //where("eventId", "==", eventId)));
-
-  //const isLiked = value !== undefined;
-
   //useEffect checks the correct value for the like button for each event
-  //and sets it. (Not working yet)
-  /*useEffect(() => {
-    const checkEventLikeState = async () => {
-      const docRef = doc(
-        db,
-        "Likes",
-        where("userId", "==", user),
-        where("eventId", "==", eventId)
-      );
-      const docSnap = await getDoc(docRef);
-      if(docSnap.exists()) {setIsLiked(true);}
-      setIsLiked(false);
+  //and sets it.
+  useEffect(() => {
+    const q = query(collection(db, "Likes"), where("userId", "==", user), where("eventId", "==", eventId));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setIsLiked(!querySnapshot.empty)
+    });
+    // Cleanup function to unsubscribe from the snapshot listener
+    return () => {
+      unsubscribe();
     };
-    checkEventLikeState();
-  }, []);*/
+  }, [eventId]);
 
   const toggleSwitch = async () => {
     setIsLiked((previousState) => !previousState);

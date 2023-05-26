@@ -16,40 +16,46 @@ const [eventData, setEventData] = useState({
 
   console.log(eventId + 'queryyyyy');
   useEffect(() => {
-    const buildLikedEvent = async () =>{
+    const buildLikedDbEvent = async () =>{
+      /*setEventData({
+        eventId: eventId,
+        name: '',
+        description: '',
+        date: '',
+        image: '',
+      });*/
         const docRef = doc(db, "Events", `${eventId}`);
         const docSnap = await getDoc(docRef);
         if ( docSnap.exists()) {
           console.log("Document data:", docSnap.data());
-          return {
+          setEventData({
             eventId: eventId,
             name: docSnap.data().name,
             description: docSnap.data().description,
             date: docSnap.data().date,
-            image: docSnap.data().image,
-          };
+            image: docSnap.data().image, 
+          });
         } else {
           // docSnap.data() will be undefined in this case
           console.log("No such document!");
         }
     }
-    setEventData(buildLikedEvent());
+    buildLikedDbEvent();
     
-  }, []);
+  }, [eventId]);
   
     if(!eventData || eventData === null){
         <ActivityIndicator size="large" color={"blue"} />
     }
       return (
-        <>{console.log('this is me' + eventData.name)}</>
-        // <EventsSquare
-        //   eventId={eventId}
-        //   name={eventData.name}
-        //   description={eventData.description}
-        //   date={eventData.date}
-        //   image={eventData.image}
-        //   //location={doc.data().location}
-        //   //city={doc.data().city}
-        // ></EventsSquare>
+         <EventsSquare
+           eventId={eventId}
+           name={eventData.name}
+           description={eventData.description}
+           date={eventData.date}
+           image={eventData.image}
+           //location={doc.data().location}
+           //city={doc.data().city}
+         ></EventsSquare>
       );
 }

@@ -33,7 +33,6 @@ export default function LikesScreen() {
       unsubscribe();
     };
   }, []);
-  const i = 0;
   if (likesArray === null || !likesArray) {
     return <NoEvents />;
   }
@@ -41,7 +40,7 @@ export default function LikesScreen() {
     <ScrollView>
       <HeaderLikes />
       {console.log("heey" + likesArray)}
-      <View /*style={styles.container}*/>
+      <View style={styles.container}>
         {likesArray.map((event) => (
           <View>
             <EventSquareQueryWrapper
