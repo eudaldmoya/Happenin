@@ -70,7 +70,7 @@ export default function LoginScreen() {
             <TextInput
               onChangeText={(text) => setEmail(text)}
               placeholder="youremail@email.com"
-              placeholderTextColor="#fdfdfd"
+              placeholderTextColor="#fdfdfd9f"
               style={styles.textinput}
             ></TextInput>
           </View>
@@ -81,7 +81,7 @@ export default function LoginScreen() {
             <TextInput
               onChangeText={(text) => setPassword(text)}
               placeholder="Password"
-              placeholderTextColor="#fdfdfd"
+              placeholderTextColor="#fdfdfd9f"
               style={styles.textinput}
             ></TextInput>
           </View>
@@ -105,8 +105,6 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#67E5BF",
     paddingTop: Constants.statusBarHeight + 30,
   },

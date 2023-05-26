@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    marginBottom: 20,
     paddingTop: Constants.statusBarHeight + 20,
     display: "flex",
     flexDirection: "row",

@@ -34,35 +34,60 @@ export default function LikesScreen() {
     };
   }, []);
   if (likesArray === null || !likesArray) {
-    return <NoEvents />;
-  }
-  return (
-    <ScrollView>
-      <HeaderLikes />
-      {console.log("heey" + likesArray)}
-      <View style={styles.container}>
-        {likesArray.map((event) => (
-          <View>
-            <EventSquareQueryWrapper
-              key={Math.random()
-                .toString(36)
-                .substring(2, event + 2)}
-              eventId={event}
-            />
-          </View>
-        ))}
+    return (
+      <View>
+        <HeaderLikes />
+        <Text style={styles.text}>
+            You don’t have any liked events yet. Start looking around to
+            discover events you might like.
+          </Text>
       </View>
-    </ScrollView>
-  );
+    );
+  } else {
+    return (
+      <ScrollView>
+        <HeaderLikes />
+        <View style={styles.containerParent}>
+          <View style={styles.container}>
+            {likesArray.map((event) => (
+              <View style={styles.card}>
+                <EventSquareQueryWrapper
+                  key={Math.random()
+                    .toString(36)
+                    .substring(2, event + 2)}
+                  eventId={event}
+                />
+              </View>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: 500,
+  containerParent: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 30,
+    margin: 30,
+  },
+  card: {},
+  text: {
     padding: 30,
+    fontSize: 14,
+    fontWeight: "300",
+    color: "#126964",
+    textAlign: 'center',
   },
 });
 
