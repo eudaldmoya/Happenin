@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { Text, View } from "react-native";
+import { Text, View, Image } from "react-native";
 import HeaderLikes from "../components/HeaderLikes";
 import NoEvents from "../components/NoEvents";
 import {
@@ -33,33 +33,37 @@ export default function LikesScreen() {
       unsubscribe();
     };
   }, []);
-  if (likesArray === null || !likesArray) {
+  if (likesArray === null || !likesArray || likesArray.length === 0) {
     return (
       <View>
         <HeaderLikes />
-        <Text style={styles.text}>
-            You don’t have any liked events yet. Start looking around to
-            discover events you might like.
+        <View style={styles.resultsText}>
+          <Image
+            source={require("../assets/NOLIKES.png")}
+            style={styles.likesImg}
+          />
+          <Text style={styles.textBold}>No liked events</Text>
+          <Text style={styles.textNormal}>
+            Start looking around to find events you might like.
           </Text>
+        </View>
       </View>
     );
   } else {
     return (
       <ScrollView>
         <HeaderLikes />
-        <View style={styles.containerParent}>
-          <View style={styles.container}>
-            {likesArray.map((event) => (
-              <View style={styles.card}>
-                <EventSquareQueryWrapper
-                  key={Math.random()
-                    .toString(36)
-                    .substring(2, event + 2)}
-                  eventId={event}
-                />
-              </View>
-            ))}
-          </View>
+        <View style={styles.container}>
+          {likesArray.map((event) => (
+            <View style={styles.card}>
+              <EventSquareQueryWrapper
+                key={Math.random()
+                  .toString(36)
+                  .substring(2, event + 2)}
+                eventId={event}
+              />
+            </View>
+          ))}
         </View>
       </ScrollView>
     );
@@ -67,27 +71,40 @@ export default function LikesScreen() {
 }
 
 const styles = StyleSheet.create({
-  containerParent: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   container: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "space-between",
     gap: 30,
-    margin: 30,
+    margin: 40,
   },
   card: {},
-  text: {
+  resultsText: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "auto",
     padding: 30,
+  },
+  textBold: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "black",
+    textAlign: "center",
+    paddingTop: 10,
+  },
+  textNormal: {
     fontSize: 14,
-    fontWeight: "300",
-    color: "#126964",
-    textAlign: 'center',
+    fontWeight: "400",
+    color: "#8a8a8a",
+    textAlign: "center",
+    paddingTop: 5,
+  },
+  likesImg: {
+    aspectRatio: 751 / 659,
+    height: "52.5%",
   },
 });
 

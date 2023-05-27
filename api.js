@@ -61,7 +61,7 @@ export const catgoriesEvents = async (tagStates) => {
 
   try {
     const response = await fetch(
-      `${API_ROOT}.json?apikey=${API_KEY}&classificationName=comedy${music}${sports}${arts}${family}${attractions}${festivals}&sort=date,asc&size=10`
+      `${API_ROOT}.json?apikey=${API_KEY}&classificationName=comedy${music}${sports}${arts}${family}${attractions}${festivals}&size=10`
     );
     const catgoriesEvent = await response.json();
     return catgoriesEvent._embedded.events;
