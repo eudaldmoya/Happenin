@@ -1,5 +1,14 @@
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import LikeBtn from "./LikeBtn";
+import { useNavigation } from "@react-navigation/native";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 /*
 EventSnapshot - Component que crida useDocument amb l'eventId i utilitza EventsSquare per pintar.
@@ -14,35 +23,75 @@ export default function EventsSquare({
   description,
   date,
 }) {
-  
-    if (name.length >= 36) {
-      var str = name;
-      var res = str.substring(0, 36);
 
-      nameCut = res + "...";
-    } else if (name.length < 36) {
-      nameCut = name;
+  const navigation = useNavigation();
+  const navigateToDetailScreen = () => {
+    navigation.navigate("Details", {
+      eventId: eventId,
+      name: name,
+      image: image,
+      location: location,
+      city: city,
+      description: description,
+      date: date,
+    })
+  }
+
+  const storeEvent = async () => {
+    const docRef = doc(db, "Events", `${eventId}`);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      await setDoc(doc(db, "Events", eventId), {
+        name: name,
+        location: location,
+        city: city,
+        description: !description ? "" : description,
+        date: date,
+        image: image,
+      });
+    } else {
+      console.log("Event already saved!");
     }
-  
+  }
+
+
+
+  if (name.length >= 36) {
+    var str = name;
+    var res = str.substring(0, 36);
+
+    nameCut = res + "...";
+  } else if (name.length < 36) {
+    nameCut = name;
+  }
+
   if (image) {
     return (
-      <ImageBackground
-        style={styles.container}
-        src={image}
-        imageStyle={{ borderRadius: 20 }}
+      <Pressable
+        onPress={() =>{
+          navigateToDetailScreen(),
+          storeEvent()
+        }
+        }
       >
-        <View style={styles.background}></View>
-        <LikeBtn
-          eventId={eventId}
-          image={image}
-          name={name}
-          // location={location}
-          // city={city}
-          description={description}
-          date={date}
-        />
-        <Text style={styles.title}>{nameCut}</Text>
-      </ImageBackground>
+        <ImageBackground
+          style={styles.container}
+          src={image}
+          imageStyle={{ borderRadius: 20 }}
+        >
+          <View style={styles.background}></View>
+          <LikeBtn
+            eventId={eventId}
+            image={image}
+            name={name}
+            location={location}
+            city={city}
+            description={description}
+            date={date}
+          />
+          <Text style={styles.title}>{nameCut}</Text>
+        </ImageBackground>
+      </Pressable>
     );
   } else {
     return (
@@ -56,8 +105,8 @@ export default function EventsSquare({
           eventId={eventId}
           image={image}
           name={name}
-          //  location={location}
-          //  city={city}
+          location={location}
+          city={city}
           description={description}
           date={date}
         />

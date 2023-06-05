@@ -4,8 +4,9 @@ import EventsSquare from "./EventsSquare";
 import { db } from "../firebaseConfig";
 import { doc, collection, getDoc } from "firebase/firestore";
 import { ActivityIndicator } from "react-native-web";
+import LongCard from "./LongCard";
 
-export default function EventSquareQueryWrapper({ eventId }) {
+export default function LongCardQueryWrapper({ eventId }) {
 const [eventData, setEventData] = useState({
     eventId: eventId,
     name: '',
@@ -18,7 +19,7 @@ const [eventData, setEventData] = useState({
 
   console.log(eventId + 'queryyyyy');
   useEffect(() => {
-    const buildLikedDbEvent = async () =>{
+    const buildJoinedDbEvent = async () =>{
         const docRef = doc(db, "Events", `${eventId}`);
         const docSnap = await getDoc(docRef);
         if ( docSnap.exists()) {
@@ -37,7 +38,7 @@ const [eventData, setEventData] = useState({
           console.log("No such document!");
         }
     }
-    buildLikedDbEvent();
+    buildJoinedDbEvent();
     
   }, [eventId]);
   
@@ -45,7 +46,7 @@ const [eventData, setEventData] = useState({
         <ActivityIndicator size="large" color={"blue"} />
     }
       return (
-         <EventsSquare
+         <LongCard
            eventId={eventId}
            name={eventData.name}
            description={eventData.description}
@@ -53,6 +54,6 @@ const [eventData, setEventData] = useState({
            image={eventData.image}
            location={eventData.location}
            city={eventData.city}
-         ></EventsSquare>
+         ></LongCard>
       );
 }

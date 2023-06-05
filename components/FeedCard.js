@@ -7,42 +7,27 @@ import LongCard from "./LongCard";
 import ShareBtn from "./ShareBtn";
 import { getRandomEvent } from "../api";
 import { ActivityIndicator } from "react-native";
+import LongCardQueryWrapper from "./LongCardQueryWrapper";
 
 export default function FeedCard({
-  image,
-  location,
-  name,
-  day,
-  month,
-  avatarName,
-  imageAvatar,
+  eventId,
+  userId
 }) {
-  const [event, setEvent] = useState(null);
-
-  useEffect(() => {
-    getRandomEvent().then(setEvent);
-  }, []);
-
-  if (event === null) {
-    return <ActivityIndicator size="large" color={"blue"} />;
+  if(!eventId || !userId){
+    <ActivityIndicator size="large" color={"blue"} />
   }
-
   return (
     <View style={styles.container}>
-      <FeedCardPerson avatarName={avatarName} imageAvatar={imageAvatar} />
+      <FeedCardPerson userId={userId}/>
       <View>
-        <LongCard
-          image={image}
-          name={name}
-          location={location}
-          day={day}
-          month={month}
+        {console.log('feed card id console' + eventId)}
+        <LongCardQueryWrapper
+        eventId={eventId}
         />
       </View>
       <View style={styles.buttons}>
-        <LikeBtn />
-        <JoinBtn />
-        <ShareBtn />
+        <LikeBtn eventId={eventId}/>
+        <JoinBtn eventId={eventId}/>
       </View>
     </View>
   );

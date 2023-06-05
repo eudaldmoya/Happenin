@@ -1,15 +1,33 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+export default function Avatar({ username, number }) {
+  console.log(username);
 
-export default function Avatar({ image, number }) {
-  if (image) {
+  //Això ho he fet així perque el 'require()' no accepta variables dinàmiques, només estàtiques
+  if (username && username == 'eudaldmoya') {
     return (
-      <Image style={styles.circular} source={image} />
+        <Image style={styles.circular} source={require('../assets/eudaldmoya.jpg')} />
+    );
+  } else if (username && username == 'marclopez') {
+    return (
+        <Image style={styles.circular} source={require('../assets/marclopez.jpg')} />
+    );
+  } else if (username && username == 'isaacmorano') {
+    return (
+        <Image style={styles.circular} source={require('../assets/isaacmorano.jpg')} />
+    );
+  } else if (username && username == 'alejandronaharro') {
+    return (
+        <Image style={styles.circular} source={require('../assets/alejandronaharro.jpg')} />
+    );
+  } else if (username && username == 'victorgranado') {
+    return (
+        <Image style={styles.circular} source={require('../assets/victorgranado.jpg')} />
     );
   } else if (number) {
     return (
       <View style={styles.numberPeople}>
         <Image style={styles.numberImage} />
-        <Text style={styles.number}>+{number}</Text>
+        <Text style={styles.number}>+{number}</Text> 
       </View>
     );
   } else {
@@ -22,6 +40,7 @@ export default function Avatar({ image, number }) {
       </View>
     );
   }
+
 }
 
 const size = 40;

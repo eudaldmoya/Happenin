@@ -8,6 +8,7 @@ import LikesScreen from "./screens/LikesScreen";
 import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import SearchScreen from "./screens/SearchScreen";
+import EventDetailScreen from "./screens/EventDetailScreen";
 
 const BottomTabs = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -57,10 +58,8 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Bottom Nav" component={BottomTabNavigator} options={{ headerShown: false }}/>
+        <Stack.Screen name="Details" component={EventDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-    // <NavigationContainer>
-    //   <BottomTabNavigator />
-    // </NavigationContainer>
   );
 }

@@ -54,13 +54,10 @@ export default function LikesScreen() {
       <ScrollView>
         <HeaderLikes />
         <View style={styles.container}>
-          {likesArray.map((event) => (
-            <View style={styles.card}>
+          {likesArray.map((eventId, index) => (
+            <View style={styles.card} key={index}>
               <EventSquareQueryWrapper
-                key={Math.random()
-                  .toString(36)
-                  .substring(2, event + 2)}
-                eventId={event}
+                eventId={eventId}
               />
             </View>
           ))}

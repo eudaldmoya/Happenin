@@ -1,100 +1,76 @@
 import * as React from "react";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, Text } from "react-native";
 
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView } from "react-native";
-import { bcnEvents, getRandomEvent } from "../api";
-import Comments from "../components/Comments";
-import EventDetailsScreenTitle from "../components/EventDetailsScreenTitle";
-import EventPopup from "../components/EventPopup";
-import EventsSquare from "../components/EventsSquare";
+import { ScrollView } from "react-native";
 import FeedCard from "../components/FeedCard";
-import HeaderFriendProfile from "../components/HeaderFriendProfile";
 import HeaderHome from "../components/HeaderHome";
-import JoinBtn from "../components/JoinBtn";
-import LikeBtn from "../components/LikeBtn";
-import LongCard from "../components/LongCard";
-import PeopleGoingEvent from "../components/PeopleGoingEvent";
-import Tags from "../components/Tags";
+import { db } from "../firebaseConfig";
+import { getAuth } from "firebase/auth";
 
 export default function HomeScreen() {
-  const [event, setEvent] = useState([]);
-  const [bcnEv, setBcnEv] = useState(null);
+  const [joinedArray, setJoinedArray] = useState(null);
+  const user = getAuth().currentUser.uid;
 
   useEffect(() => {
-    getRandomEvent().then(setEvent);
+    const q = query(collection(db, "Joined"), where("userId", "!=", user),);
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const updatedJoined = [];
+      querySnapshot.forEach((doc) => {
+        updatedJoined.push(doc.data());
+      });
+      setJoinedArray(updatedJoined);
+    });
+    // Cleanup function to unsubscribe from the snapshot listener
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  useEffect(() => {
-    bcnEvents().then(setBcnEv);
-  }, []);
-
-  if (event === null || bcnEv ===null || !bcnEv) {
-    return <ActivityIndicator size="large" color={"blue"} />;
-  } else {
-    // let date = event.dates.start.localDate;
-    // let dayNumber = new Date(date).getDate();
-    // let month = new Date(date);
-    // let monthName = month
-    //   .toLocaleString("default", { month: "short" })
-    //   .toUpperCase();
-
-    let eventSquares = [];
-    for (let i = 0; i < bcnEv.length; i++) {
-      eventSquares.push(
-        <View key={i}>
-          <EventsSquare name={bcnEv[i].name} />
+  // if (event === null || bcnEv ===null || !bcnEv) {
+  //   return <ActivityIndicator size="large" color={"blue"} />;
+  // } else {
+  //   // let date = event.dates.start.localDate;
+  //   // let dayNumber = new Date(date).getDate();
+  //   // let month = new Date(date);
+  //   // let monthName = month
+  //   //   .toLocaleString("default", { month: "short" })
+  //   //   .toUpperCase();
+  if (joinedArray === null || !joinedArray || joinedArray.length === 0) {
+    return (
+      <View>
+        <HeaderHome />
+        <View style={styles.resultsText}>
+          <Image
+            source={require("../assets/NOLIKES.png")}
+            style={styles.likesImg}
+          />
+          <Text style={styles.textBold}>Friends haven't joined events yet</Text>
         </View>
-      );
-    }
-
+      </View>
+    );
+  } else {
     return (
       <ScrollView>
         <HeaderHome />
         <View style={styles.container}>
-          {/* <FeedCard
-            avatarName={"Marc López"}
-            imageAvatar={""}
-            image={event.images[0].url}
-            name={event.name}
-            location={
-              event._embedded.venues[0].name +
-              ", " +
-              event._embedded.venues[0].city.name
-            }
-            day={dayNumber}
-            month={monthName}
-          /> */}
-          {/* <View style={styles.events}>{eventSquares}</View> */}
-          {/* <View style={styles.tags}>
-            <Tags tagName={"Music"} />
-            <Tags tagName={"Festivals"} />
-            <Tags tagName={"Family"} />
-          </View> */}
-          {/* <LongCard
-            name="Vida Records Festival"
-            location="Parc Del Fòrum, Barcelona"
-            day="29"
-            month="MAR"
-          />
-          <LongCard
-            name="Mad Cool"
-            location="Caja Mágica, Madrid"
-            day="6"
-            month="JUL"
-          />
-          <HeaderFriendProfile
-            image={require("../assets/profile.jpg")}
-            name={"Eudald Moya"}
-            age={23}
-            country={"Spain"}
-          />
-          <JoinBtn />
-          <LikeBtn />
-          <EventDetailsScreenTitle />
-          <PeopleGoingEvent />
-          <EventPopup />
-          <Comments /> */}
+          {console.log('This is the array: ' + joinedArray[0].eventId)}
+          {joinedArray.map((event, index) => (
+            <View style={styles.card} key={index}>
+              <FeedCard
+                eventId={event.eventId}
+                userId={event.userId} 
+                // avatarName={"Marc López"}
+                // imageAvatar={""}
+                // image={require("../assets/placeholder.png")}
+                // name="The Weeknd"
+                // location="Palau, Barcelona"
+                // day="24"
+                // month="MAR"
+              />
+            </View>
+          ))}
         </View>
       </ScrollView>
     );
@@ -123,5 +99,9 @@ const styles = StyleSheet.create({
   tags: {
     display: "flex",
     flexDirection: "row",
+  },
+  likesImg: {
+    aspectRatio: 751 / 659,
+    height: "52.5%",
   },
 });

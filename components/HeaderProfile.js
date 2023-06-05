@@ -1,20 +1,49 @@
 import Constants from "expo-constants";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AvatarProfile from "./AvatarProfile";
+import { db } from "../firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
+import { ActivityIndicator } from "react-native";
 
-export default function HeaderProfile({ image, name, age, country }) {
+export default function HeaderProfile({ user }) {
+
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const buildUserData = async () => {
+      const docRef = doc(db, "User", `${user}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setUserData({
+          name: docSnap.data().username,
+          image: docSnap.data().image,
+          age: docSnap.data().age,
+          location: docSnap.data().location
+        });
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    };
+    buildUserData();
+  }, [user]);
+
+  if (!userData || userData === null) {
+    <ActivityIndicator size="large" color={"blue"} />
+  } else {
   return (
     <View style={styles.container}>
-      <AvatarProfile image={image} />
+      <AvatarProfile username={userData.name} />
       <View style={styles.texts}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{userData.name}</Text>
         <Text style={styles.info}>
-          {age}, {country}
+          {userData.age}, {userData.location}
         </Text>
       </View>
     </View>
   );
+  }
 }
 
 const styles = StyleSheet.create({

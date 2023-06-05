@@ -53,8 +53,8 @@ const LikeBtn = ({
     if (!docSnap.exists()) {
       await setDoc(doc(db, "Events", eventId), {
         name: name,
-        //  location: {location},
-        //   city: {city},
+        location: location,
+        city: city,
         description: !description ? "" : description,
         date: date,
         image: image,

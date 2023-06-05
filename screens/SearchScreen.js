@@ -68,8 +68,8 @@ export default function SearchScreen() {
               eventId={eventSug[i].id}
               name={eventSug[i].name}
               image={eventSug[i].images[0].url}
-              //location={!eventSug[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
-              //city={!eventSug[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              location={!eventSug[i]._embedded.venues[0].name ? '' : eventSug[i]._embedded.venues[0].name}
+              city={!eventSug[i]._embedded.venues[0].city.name ? '' : eventSug[i]._embedded.venues[0].city.name}
               date={eventSug[i].dates.start.localDate}
               description={eventSug[i].info}
             />
@@ -82,8 +82,8 @@ export default function SearchScreen() {
               eventId={eventSug[i].id}
               name={eventSug[i].name}
               image={eventSug[i].images[0].url}
-              //location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
-              //city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              location={!eventSug[i]._embedded.venues[0].name ? '' : eventSug[i]._embedded.venues[0].name}
+              city={!eventSug[i]._embedded.venues[0].city.name ? '' : eventSug[i]._embedded.venues[0].city.name}
               date={eventSug[i].dates.start.localDate}
               description={eventSug[i].info}
             />
@@ -100,8 +100,8 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
-              //location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
-              //city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
+              city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
               date={categEvent[i].dates.start.localDate}
               description={categEvent[i].info}
             />
@@ -114,8 +114,8 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
-              //location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
-              //city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
+              city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
               date={categEvent[i].dates.start.localDate}
               description={categEvent[i].info}
             />
