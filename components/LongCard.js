@@ -1,12 +1,23 @@
-import { Image, ImageBackground, StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+} from "react-native";
 import { db } from "../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const Body = ({ image, location, city, name, date }) => {
- 
-
+const Body = ({
+  image,
+  location,
+  city,
+  name,
+  date,
+}) => {
   if (name.length >= 30) {
     var str = name;
     var res = str.substring(0, 30);
@@ -21,32 +32,30 @@ const Body = ({ image, location, city, name, date }) => {
   dateObj.setMonth(monthNumber - 1);
   const monthName = dateObj.toLocaleString("en-US", { month: "short" });
   return (
-   
-      <View style={styles.innerContainer}>
-        {image ? (
-          <Image style={styles.innerImg} src={image} />
-        ) : (
-          <Image
-            style={styles.innerImg}
-            source={require("../assets/placeholder.png")}
-          />
-        )}
-        <View style={styles.textWrapper}>
-          <View style={styles.textInfo}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.location}>{`${location}, ${city}`}</Text>
-          </View>
-          <View style={styles.dateContainer}>
-            <Text style={styles.date1}>{day}</Text>
-            <Text style={styles.date2}>{monthName}</Text>
-          </View>
+    <View style={styles.innerContainer}>
+      {image ? (
+        <Image style={styles.innerImg} src={image} />
+      ) : (
+        <Image
+          style={styles.innerImg}
+          source={require("../assets/placeholder.png")}
+        />
+      )}
+      <View style={styles.textWrapper}>
+        <View style={styles.textInfo}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.location}>{`${location}, ${city}`}</Text>
+        </View>
+        <View style={styles.dateContainer}>
+          <Text style={styles.date1}>{day}</Text>
+          <Text style={styles.date2}>{monthName}</Text>
         </View>
       </View>
+    </View>
   );
 };
 
 export default function LongCard(props) {
-
   const navigation = useNavigation();
   const navigateToDetailScreen = () => {
     navigation.navigate("Details", {
@@ -57,41 +66,46 @@ export default function LongCard(props) {
       city: props.city,
       description: props.description,
       date: props.date,
+      url: props.url,
+      attraction: props.attraction,
+      instagram: props.instagram,
+      facebook: props.facebook,
+      twitter: props.twitter,
     });
   };
 
   if (props.image) {
     return (
       <Pressable
-      onPress={() => {
-        navigateToDetailScreen();
-      }}
-    >
-      <ImageBackground
-        style={styles.backImg}
-        imageStyle={{ borderRadius: 20 }}
-        src={props.image}
+        onPress={() => {
+          navigateToDetailScreen();
+        }}
       >
-        <View style={styles.filter}></View>
-        <Body {...props} />
-      </ImageBackground>
+        <ImageBackground
+          style={styles.backImg}
+          imageStyle={{ borderRadius: 20 }}
+          src={props.image}
+        >
+          <View style={styles.filter}></View>
+          <Body {...props} />
+        </ImageBackground>
       </Pressable>
     );
   } else {
     return (
       <Pressable
-      onPress={() => {
-        navigateToDetailScreen();
-      }}
-    >
-      <ImageBackground
-        style={styles.backImg}
-        imageStyle={{ borderRadius: 20 }}
-        source={require("../assets/placeholder.png")}
+        onPress={() => {
+          navigateToDetailScreen();
+        }}
       >
-        <View style={styles.filter}></View>
-        <Body {...props} />
-      </ImageBackground>
+        <ImageBackground
+          style={styles.backImg}
+          imageStyle={{ borderRadius: 20 }}
+          source={require("../assets/placeholder.png")}
+        >
+          <View style={styles.filter}></View>
+          <Body {...props} />
+        </ImageBackground>
       </Pressable>
     );
   }

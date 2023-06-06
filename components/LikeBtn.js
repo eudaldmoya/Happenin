@@ -16,7 +16,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { useDocument } from 'react-firebase-hooks/firestore';
+import { useDocument } from "react-firebase-hooks/firestore";
 
 const LikeBtn = ({
   eventId,
@@ -26,15 +26,24 @@ const LikeBtn = ({
   description,
   date,
   image,
+  url,
+  attraction,
+  instagram,
+  facebook,
+  twitter,
 }) => {
   const [isLiked, setIsLiked] = useState(null);
   const user = getAuth().currentUser.uid;
   //useEffect checks the correct value for the like button for each event
   //and sets it.
   useEffect(() => {
-    const q = query(collection(db, "Likes"), where("userId", "==", user), where("eventId", "==", eventId));
+    const q = query(
+      collection(db, "Likes"),
+      where("userId", "==", user),
+      where("eventId", "==", eventId)
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      setIsLiked(!querySnapshot.empty)
+      setIsLiked(!querySnapshot.empty);
     });
     // Cleanup function to unsubscribe from the snapshot listener
     return () => {
@@ -47,7 +56,7 @@ const LikeBtn = ({
     console.log(user);
     console.log(eventId);
 
-    //Add Event to database if it doesn't exist 
+    //Add Event to database if it doesn't exist
     const docRef = doc(db, "Events", `${eventId}`);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
@@ -58,6 +67,11 @@ const LikeBtn = ({
         description: !description ? "" : description,
         date: date,
         image: image,
+        url: url,
+        attraction: attraction,
+        instagram: instagram,
+        facebook: facebook,
+        twitter: twitter,
       });
     } else {
       console.log("Event already saved!");
@@ -70,7 +84,8 @@ const LikeBtn = ({
         userId: user,
       });
       console.log("green");
-    } else { //If it is disliked, docs with that eventId and userId are deleted
+    } else {
+      //If it is disliked, docs with that eventId and userId are deleted
       const collectionRef = collection(db, "Likes");
       const q = query(
         collectionRef,

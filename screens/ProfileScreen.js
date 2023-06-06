@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   likesImg: {
     aspectRatio: 751 / 659,
-    height: "52.5%",
+    height: "50%",
   },
   eventsTextParent: {
     display: 'flex',

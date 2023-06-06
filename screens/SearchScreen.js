@@ -1,18 +1,17 @@
+import Constants from "expo-constants";
 import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   Animated,
   ScrollView,
   StyleSheet,
   Text,
-  View,
+  View
 } from "react-native";
 import { catgoriesEvents, suggestEvent } from "../api";
 import EventsSquare from "../components/EventsSquare";
 import HeaderSearch from "../components/HeaderSearch";
 import SearchResults from "../components/SearchResults";
 import Tags from "../components/Tags";
-import Constants from "expo-constants";
 
 export default function SearchScreen() {
   //SEARCH
@@ -54,12 +53,12 @@ export default function SearchScreen() {
   const StartOpacityAnimation = () => {
     Animated.timing(animatedOpacity, {
       toValue: 1,
-      duration: 1500,
+      duration: 750,
       useNativeDriver: true,
     }).start(() => {
       Animated.timing(animatedOpacity, {
-        toValue: 0.33,
-        duration: 1500,
+        toValue: 0.125,
+        duration: 750,
         useNativeDriver: true,
       }).start(() => {
         StartOpacityAnimation();
@@ -81,26 +80,52 @@ export default function SearchScreen() {
         </Animated.View>
         <View style={styles.containerPlaceholder}>
           <View style={styles.suggestedContainer}>
-            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <Animated.View
+              style={[styles.textLoading, { opacity: animatedOpacity }]}
+            ></Animated.View>
             <View style={styles.boxLoadingParent}>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
             </View>
           </View>
           <View style={styles.suggestedContainer}>
-            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <Animated.View
+              style={[styles.textLoading, { opacity: animatedOpacity }]}
+            ></Animated.View>
             <View style={styles.tagLoadingParent}>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
             </View>
             <View style={styles.boxLoadingParent}>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
             </View>
           </View>
         </View>
@@ -116,26 +141,52 @@ export default function SearchScreen() {
         </Animated.View>
         <View style={styles.containerPlaceholder}>
           <View style={styles.suggestedContainer}>
-            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <Animated.View
+              style={[styles.textLoading, { opacity: animatedOpacity }]}
+            ></Animated.View>
             <View style={styles.boxLoadingParent}>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
             </View>
           </View>
           <View style={styles.suggestedContainer}>
-            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <Animated.View
+              style={[styles.textLoading, { opacity: animatedOpacity }]}
+            ></Animated.View>
             <View style={styles.tagLoadingParent}>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.tagLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
             </View>
             <View style={styles.boxLoadingParent}>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
-              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
+              <Animated.View
+                style={[styles.boxLoading, { opacity: animatedOpacity }]}
+              ></Animated.View>
             </View>
           </View>
         </View>
@@ -149,6 +200,7 @@ export default function SearchScreen() {
         console.log(`${eventSug[i].name}`);
         eventSquares.push(
           <View key={i} style={{ marginRight: 20, paddingRight: 20 }}>
+            {console.log("FACEBOOK: " + eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url)}
             <EventsSquare
               eventId={eventSug[i].id}
               name={eventSug[i].name}
@@ -165,6 +217,11 @@ export default function SearchScreen() {
               }
               date={eventSug[i].dates.start.localDate}
               description={eventSug[i].info}
+              url={eventSug[i].url}
+              attraction={eventSug[i]._embedded.attractions[0].name}
+              instagram={eventSug[i]._embedded.attractions[0].name}
+              facebook={eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              twitter={eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
@@ -187,6 +244,11 @@ export default function SearchScreen() {
               }
               date={eventSug[i].dates.start.localDate}
               description={eventSug[i].info}
+              url={eventSug[i].url}
+              attraction={eventSug[i]._embedded.attractions[0].name}
+              instagram={eventSug[i]._embedded.attractions[0].name}
+              facebook={!eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              twitter={!eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
@@ -213,6 +275,11 @@ export default function SearchScreen() {
               }
               date={categEvent[i].dates.start.localDate}
               description={categEvent[i].info}
+              url={categEvent[i].url}
+              attraction={categEvent[i]._embedded.attractions[0].name}
+              instagram={categEvent[i]._embedded.attractions[0].name}
+              facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
@@ -235,6 +302,11 @@ export default function SearchScreen() {
               }
               date={categEvent[i].dates.start.localDate}
               description={categEvent[i].info}
+              url={categEvent[i].url}
+              attraction={categEvent[i]._embedded.attractions[0].name}
+              instagram={categEvent[i]._embedded.attractions[0].name}
+              facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );

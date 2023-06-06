@@ -6,53 +6,67 @@ import { doc, collection, getDoc } from "firebase/firestore";
 import { ActivityIndicator } from "react-native-web";
 
 export default function EventSquareQueryWrapper({ eventId }) {
-const [eventData, setEventData] = useState({
+  const [eventData, setEventData] = useState({
     eventId: eventId,
-    name: '',
-    description: '',
-    date: '',
-    image: '',
-    location: '',
-    city: '',
-});
+    name: "",
+    description: "",
+    date: "",
+    image: "",
+    location: "",
+    city: "",
+    url: "",
+    attraction: "",
+    instagram: "",
+    facebook: "",
+    twitter: "",
+  });
 
-  console.log(eventId + 'queryyyyy');
+  console.log(eventId + "queryyyyy");
   useEffect(() => {
-    const buildLikedDbEvent = async () =>{
-        const docRef = doc(db, "Events", `${eventId}`);
-        const docSnap = await getDoc(docRef);
-        if ( docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
-          setEventData({
-            eventId: eventId,
-            name: docSnap.data().name,
-            description: docSnap.data().description,
-            date: docSnap.data().date,
-            image: docSnap.data().image, 
-            location: docSnap.data().location,
-            city: docSnap.data().city,
-          });
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
-        }
-    }
+    const buildLikedDbEvent = async () => {
+      const docRef = doc(db, "Events", `${eventId}`);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setEventData({
+          eventId: eventId,
+          name: docSnap.data().name,
+          description: docSnap.data().description,
+          date: docSnap.data().date,
+          image: docSnap.data().image,
+          location: docSnap.data().location,
+          city: docSnap.data().city,
+          url: docSnap.data().url,
+          attraction: docSnap.data().attraction,
+          instagram: docSnap.data().instagram,
+          facebook: docSnap.data().facebook,
+          twitter: docSnap.data().twitter,
+        });
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    };
     buildLikedDbEvent();
-    
   }, [eventId]);
-  
-    if(!eventData || eventData === null){
-        <ActivityIndicator size="large" color={"blue"} />
-    }
-      return (
-         <EventsSquare
-           eventId={eventId}
-           name={eventData.name}
-           description={eventData.description}
-           date={eventData.date}
-           image={eventData.image}
-           location={eventData.location}
-           city={eventData.city}
-         ></EventsSquare>
-      );
+
+  if (!eventData || eventData === null) {
+    <ActivityIndicator size="large" color={"blue"} />;
+  }
+  return (
+    <EventsSquare
+      eventId={eventId}
+      name={eventData.name}
+      description={eventData.description}
+      date={eventData.date}
+      image={eventData.image}
+      location={eventData.location}
+      city={eventData.city}
+      url={eventData.url}
+      attraction={eventData.attraction}
+      instagram={eventData.instagram}
+      facebook={eventData.facebook}
+      twitter={eventData.twitter}
+    ></EventsSquare>
+  );
 }

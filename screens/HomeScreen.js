@@ -28,15 +28,6 @@ export default function HomeScreen() {
     };
   }, []);
 
-  // if (event === null || bcnEv ===null || !bcnEv) {
-  //   return <ActivityIndicator size="large" color={"blue"} />;
-  // } else {
-  //   // let date = event.dates.start.localDate;
-  //   // let dayNumber = new Date(date).getDate();
-  //   // let month = new Date(date);
-  //   // let monthName = month
-  //   //   .toLocaleString("default", { month: "short" })
-  //   //   .toUpperCase();
   if (joinedArray === null || !joinedArray || joinedArray.length === 0) {
     return (
       <View>

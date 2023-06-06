@@ -22,8 +22,12 @@ export default function EventsSquare({
   city,
   description,
   date,
+  url,
+  attraction,
+  instagram,
+  facebook,
+  twitter,
 }) {
-
   const navigation = useNavigation();
   const navigateToDetailScreen = () => {
     navigation.navigate("Details", {
@@ -34,8 +38,13 @@ export default function EventsSquare({
       city: city,
       description: description,
       date: date,
-    })
-  }
+      url: url,
+      attraction: attraction,
+      instagram: instagram,
+      facebook: facebook,
+      twitter: twitter,
+    });
+  };
 
   const storeEvent = async () => {
     const docRef = doc(db, "Events", `${eventId}`);
@@ -48,13 +57,16 @@ export default function EventsSquare({
         description: !description ? "" : description,
         date: date,
         image: image,
+        url: !url ? "" : url,
+        attraction: !attraction ? "" : attraction,
+        instagram: !instagram ? "" : instagram,
+        facebook: !facebook ? "" : facebook,
+        twitter: !twitter ? "" : twitter,
       });
     } else {
       console.log("Event already saved!");
     }
-  }
-
-
+  };
 
   if (name.length >= 36) {
     var str = name;
@@ -68,11 +80,9 @@ export default function EventsSquare({
   if (image) {
     return (
       <Pressable
-        onPress={() =>{
-          navigateToDetailScreen(),
-          storeEvent()
-        }
-        }
+        onPress={() => {
+          storeEvent(), navigateToDetailScreen();
+        }}
       >
         <ImageBackground
           style={styles.container}
@@ -88,6 +98,11 @@ export default function EventsSquare({
             city={city}
             description={description}
             date={date}
+            url={url}
+            attraction={attraction}
+            instagram={instagram}
+            facebook={facebook}
+            twitter={twitter}
           />
           <Text style={styles.title}>{nameCut}</Text>
         </ImageBackground>
@@ -95,23 +110,34 @@ export default function EventsSquare({
     );
   } else {
     return (
-      <ImageBackground
-        style={styles.container}
-        source={require("../assets/placeholder.png")}
-        imageStyle={{ borderRadius: 20 }}
+      <Pressable
+        onPress={() => {
+          storeEvent(), navigateToDetailScreen();
+        }}
       >
-        <View style={styles.background}></View>
-        <LikeBtn
-          eventId={eventId}
-          image={image}
-          name={name}
-          location={location}
-          city={city}
-          description={description}
-          date={date}
-        />
-        <Text style={styles.title}>{nameCut}</Text>
-      </ImageBackground>
+        <ImageBackground
+          style={styles.container}
+          source={require("../assets/placeholder.png")}
+          imageStyle={{ borderRadius: 20 }}
+        >
+          <View style={styles.background}></View>
+          <LikeBtn
+            eventId={eventId}
+            image={image}
+            name={name}
+            location={location}
+            city={city}
+            description={description}
+            date={date}
+            url={url}
+            attraction={attraction}
+            instagram={instagram}
+            facebook={facebook}
+            twitter={twitter}
+          />
+          <Text style={styles.title}>{nameCut}</Text>
+        </ImageBackground>
+      </Pressable>
     );
   }
 }

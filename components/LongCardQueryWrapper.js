@@ -15,6 +15,11 @@ const [eventData, setEventData] = useState({
     image: '',
     location: '',
     city: '',
+    url: '',
+    attraction: '',
+    instagram: '',
+    facebook: '',
+    twitter: '',
 });
 
   console.log(eventId + 'queryyyyy');
@@ -32,6 +37,11 @@ const [eventData, setEventData] = useState({
             image: docSnap.data().image, 
             location: docSnap.data().location,
             city: docSnap.data().city,
+            url: docSnap.data().url,
+            attraction : docSnap.data().attraction,
+            instagram : docSnap.data().instagram,
+            facebook : docSnap.data().facebook,
+            twitter : docSnap.data().twitter,
           });
         } else {
           // docSnap.data() will be undefined in this case
@@ -54,6 +64,11 @@ const [eventData, setEventData] = useState({
            image={eventData.image}
            location={eventData.location}
            city={eventData.city}
+           url={eventData.url}
+           attraction={eventData.attraction}
+           instagram={eventData.instagram}
+           facebook={eventData.facebook}
+           twitter={eventData.twitter}
          ></LongCard>
       );
 }
