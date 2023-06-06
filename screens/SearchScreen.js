@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Animated,
   ScrollView,
   StyleSheet,
   Text,
@@ -48,13 +49,97 @@ export default function SearchScreen() {
     }));
   };
 
+  const [animatedOpacity] = useState(new Animated.Value(0.5));
+
+  const StartOpacityAnimation = () => {
+    Animated.timing(animatedOpacity, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.timing(animatedOpacity, {
+        toValue: 0.33,
+        duration: 1500,
+        useNativeDriver: true,
+      }).start(() => {
+        StartOpacityAnimation();
+      });
+    });
+  };
+
+  useEffect(() => {
+    StartOpacityAnimation();
+  }, []);
+
   if (eventSug === null || categEvent === null || !eventSug || !categEvent) {
     return (
-      <ActivityIndicator style={styles.circle} size="large" color={"blue"} />
+      <ScrollView>
+        <Animated.View
+          style={[styles.searchLoading, { opacity: animatedOpacity }]}
+        >
+          <View style={styles.searchBoxLoading}></View>
+        </Animated.View>
+        <View style={styles.containerPlaceholder}>
+          <View style={styles.suggestedContainer}>
+            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <View style={styles.boxLoadingParent}>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+            </View>
+          </View>
+          <View style={styles.suggestedContainer}>
+            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <View style={styles.tagLoadingParent}>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+            </View>
+            <View style={styles.boxLoadingParent}>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
     );
   } else if (eventSug.length === 0 || categEvent.length === 0) {
     return (
-      <ActivityIndicator style={styles.circle} size="large" color={"blue"} />
+      <ScrollView>
+        <Animated.View
+          style={[styles.searchLoading, { opacity: animatedOpacity }]}
+        >
+          <View style={styles.searchBoxLoading}></View>
+        </Animated.View>
+        <View style={styles.containerPlaceholder}>
+          <View style={styles.suggestedContainer}>
+            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <View style={styles.boxLoadingParent}>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+            </View>
+          </View>
+          <View style={styles.suggestedContainer}>
+            <Animated.View style={[styles.textLoading, { opacity: animatedOpacity }]}></Animated.View>
+            <View style={styles.tagLoadingParent}>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.tagLoading, { opacity: animatedOpacity }]}></Animated.View>
+            </View>
+            <View style={styles.boxLoadingParent}>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+              <Animated.View style={[styles.boxLoading, { opacity: animatedOpacity }]}></Animated.View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
     );
   } else {
     let eventSquares = [];
@@ -68,8 +153,16 @@ export default function SearchScreen() {
               eventId={eventSug[i].id}
               name={eventSug[i].name}
               image={eventSug[i].images[0].url}
-              location={!eventSug[i]._embedded.venues[0].name ? '' : eventSug[i]._embedded.venues[0].name}
-              city={!eventSug[i]._embedded.venues[0].city.name ? '' : eventSug[i]._embedded.venues[0].city.name}
+              location={
+                !eventSug[i]._embedded.venues[0].name
+                  ? ""
+                  : eventSug[i]._embedded.venues[0].name
+              }
+              city={
+                !eventSug[i]._embedded.venues[0].city.name
+                  ? ""
+                  : eventSug[i]._embedded.venues[0].city.name
+              }
               date={eventSug[i].dates.start.localDate}
               description={eventSug[i].info}
             />
@@ -82,8 +175,16 @@ export default function SearchScreen() {
               eventId={eventSug[i].id}
               name={eventSug[i].name}
               image={eventSug[i].images[0].url}
-              location={!eventSug[i]._embedded.venues[0].name ? '' : eventSug[i]._embedded.venues[0].name}
-              city={!eventSug[i]._embedded.venues[0].city.name ? '' : eventSug[i]._embedded.venues[0].city.name}
+              location={
+                !eventSug[i]._embedded.venues[0].name
+                  ? ""
+                  : eventSug[i]._embedded.venues[0].name
+              }
+              city={
+                !eventSug[i]._embedded.venues[0].city.name
+                  ? ""
+                  : eventSug[i]._embedded.venues[0].city.name
+              }
               date={eventSug[i].dates.start.localDate}
               description={eventSug[i].info}
             />
@@ -100,8 +201,16 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
-              location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
-              city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              location={
+                !categEvent[i]._embedded.venues[0].name
+                  ? ""
+                  : categEvent[i]._embedded.venues[0].name
+              }
+              city={
+                !categEvent[i]._embedded.venues[0].city.name
+                  ? ""
+                  : categEvent[i]._embedded.venues[0].city.name
+              }
               date={categEvent[i].dates.start.localDate}
               description={categEvent[i].info}
             />
@@ -114,8 +223,16 @@ export default function SearchScreen() {
               eventId={categEvent[i].id}
               name={categEvent[i].name}
               image={categEvent[i].images[0].url}
-              location={!categEvent[i]._embedded.venues[0].name ? '' : categEvent[i]._embedded.venues[0].name}
-              city={!categEvent[i]._embedded.venues[0].city.name ? '' : categEvent[i]._embedded.venues[0].city.name}
+              location={
+                !categEvent[i]._embedded.venues[0].name
+                  ? ""
+                  : categEvent[i]._embedded.venues[0].name
+              }
+              city={
+                !categEvent[i]._embedded.venues[0].city.name
+                  ? ""
+                  : categEvent[i]._embedded.venues[0].city.name
+              }
               date={categEvent[i].dates.start.localDate}
               description={categEvent[i].info}
             />
@@ -209,15 +326,63 @@ export default function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  circle: {
+  searchLoading: {
+    backgroundColor: "#dedede",
+    padding: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingTop: Constants.statusBarHeight + 20,
+  },
+  searchBoxLoading: {
+    flexDirection: "row",
+    borderRadius: 10,
+    padding: 10,
+    gap: 10,
+    height: 40,
+    paddingLeft: 30,
+  },
+  indicatorParent: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   },
   resultsParent: {
     overflow: "hidden",
     backgroundColor: "transparent",
     pointerEvents: "box-none",
+  },
+  textLoading: {
+    width: "50%",
+    height: 30,
+    backgroundColor: "#dedede",
+    borderRadius: 7.5,
+  },
+  boxLoadingParent: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+  },
+  boxLoading: {
+    width: 150,
+    height: 150,
+    backgroundColor: "#dedede",
+    borderRadius: 7.5,
+  },
+  tagLoadingParent: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+  },
+  tagLoading: {
+    width: 75,
+    height: 25,
+    backgroundColor: "#dedede",
+    borderRadius: 7.5,
+  },
+  containerPlaceholder: {
+    gap: 20,
+    paddingLeft: 20,
   },
   container: {
     gap: 20,
@@ -247,6 +412,5 @@ const styles = StyleSheet.create({
     marginBottom: 240 + Constants.statusBarHeight,
     paddingTop: 20,
     bottom: 20,
-    // bottom: 20,
   },
 });

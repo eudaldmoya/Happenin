@@ -33,7 +33,7 @@ export default function FeedCardPerson({ userId }) {
       <Avatar username={userData.name}/>
       <View style={styles.avatarName}>
         <Text style={styles.name}>{userData.name}</Text>
-        <Text style={styles.text}>is going to this concert</Text>
+        <Text style={styles.text}>is going to this event</Text>
       </View>
     </View>
   );

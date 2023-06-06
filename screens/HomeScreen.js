@@ -43,7 +43,7 @@ export default function HomeScreen() {
         <HeaderHome />
         <View style={styles.resultsText}>
           <Image
-            source={require("../assets/NOLIKES.png")}
+            source={require("../assets/NOJOINFRIENDS.png")}
             style={styles.likesImg}
           />
           <Text style={styles.textBold}>Friends haven't joined events yet</Text>
@@ -60,14 +60,7 @@ export default function HomeScreen() {
             <View style={styles.card} key={index}>
               <FeedCard
                 eventId={event.eventId}
-                userId={event.userId} 
-                // avatarName={"Marc López"}
-                // imageAvatar={""}
-                // image={require("../assets/placeholder.png")}
-                // name="The Weeknd"
-                // location="Palau, Barcelona"
-                // day="24"
-                // month="MAR"
+                userId={event.userId}
               />
             </View>
           ))}
@@ -100,8 +93,30 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
   },
+  resultsText: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "auto",
+    padding: 30,
+  },
+  textBold: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "black",
+    textAlign: "center",
+    paddingTop: 10,
+  },
+  textNormal: {
+    fontSize: 14,
+    fontWeight: "400",
+    color: "#8a8a8a",
+    textAlign: "center",
+    paddingTop: 5,
+  },
   likesImg: {
     aspectRatio: 751 / 659,
-    height: "52.5%",
+    height: "55%",
   },
 });

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     padding: 30,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    marginBottom: 30,
+    marginBottom: 20,
     paddingTop: Constants.statusBarHeight + 30,
     display: "flex",
     flexDirection: "row",
