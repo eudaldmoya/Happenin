@@ -17,6 +17,7 @@ const Body = ({
   city,
   name,
   date,
+  day, month
 }) => {
   if (name.length >= 30) {
     var str = name;
@@ -26,11 +27,7 @@ const Body = ({
   } else {
     name = name;
   }
-  const day = date.split("-")[2];
-  const monthNumber = date.split("-")[1];
-  const dateObj = new Date();
-  dateObj.setMonth(monthNumber - 1);
-  const monthName = dateObj.toLocaleString("en-US", { month: "short" });
+  
   return (
     <View style={styles.innerContainer}>
       {image ? (
@@ -48,7 +45,7 @@ const Body = ({
         </View>
         <View style={styles.dateContainer}>
           <Text style={styles.date1}>{day}</Text>
-          <Text style={styles.date2}>{monthName}</Text>
+          <Text style={styles.date2}>{month}</Text>
         </View>
       </View>
     </View>
@@ -84,7 +81,7 @@ export default function LongCard(props) {
         <ImageBackground
           style={styles.backImg}
           imageStyle={{ borderRadius: 20 }}
-          src={props.image}
+          src={props.image} 
         >
           <View style={styles.filter}></View>
           <Body {...props} />

@@ -11,7 +11,8 @@ const [eventData, setEventData] = useState({
     eventId: eventId,
     name: '',
     description: '',
-    date: '',
+    day: '',
+    month: '',
     image: '',
     location: '',
     city: '',
@@ -29,11 +30,18 @@ const [eventData, setEventData] = useState({
         const docSnap = await getDoc(docRef);
         if ( docSnap.exists()) {
           console.log("Document data:", docSnap.data());
+          const day = docSnap.data().date.split("-")[2];
+          const monthNumber = docSnap.data().date.split("-")[1];
+          const dateObj = new Date();
+          dateObj.setMonth(monthNumber - 1);
+          const monthName = dateObj.toLocaleString("en-US", { month: "short" });
           setEventData({
             eventId: eventId,
             name: docSnap.data().name,
             description: docSnap.data().description,
-            date: docSnap.data().date,
+            day: day,
+            month: monthName,
+            date: '',
             image: docSnap.data().image, 
             location: docSnap.data().location,
             city: docSnap.data().city,
@@ -60,6 +68,8 @@ const [eventData, setEventData] = useState({
            eventId={eventId}
            name={eventData.name}
            description={eventData.description}
+           day={eventData.day}
+           month={eventData.month}
            date={eventData.date}
            image={eventData.image}
            location={eventData.location}

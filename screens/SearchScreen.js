@@ -219,9 +219,9 @@ export default function SearchScreen() {
               description={eventSug[i].info}
               url={eventSug[i].url}
               attraction={eventSug[i]._embedded.attractions[0].name}
-              instagram={eventSug[i]._embedded.attractions[0].name}
-              facebook={eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              twitter={eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              // instagram={!eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url}
+              // facebook={!eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              // twitter={!eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
@@ -246,9 +246,9 @@ export default function SearchScreen() {
               description={eventSug[i].info}
               url={eventSug[i].url}
               attraction={eventSug[i]._embedded.attractions[0].name}
-              instagram={eventSug[i]._embedded.attractions[0].name}
-              facebook={!eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              twitter={!eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              // instagram={!eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url}
+              // facebook={!eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              // twitter={!eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
@@ -277,9 +277,9 @@ export default function SearchScreen() {
               description={categEvent[i].info}
               url={categEvent[i].url}
               attraction={categEvent[i]._embedded.attractions[0].name}
-              instagram={categEvent[i]._embedded.attractions[0].name}
-              facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              // instagram={!categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url}
+              // facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              // twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
@@ -304,9 +304,9 @@ export default function SearchScreen() {
               description={categEvent[i].info}
               url={categEvent[i].url}
               attraction={categEvent[i]._embedded.attractions[0].name}
-              instagram={categEvent[i]._embedded.attractions[0].name}
-              facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              // instagram={!categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url}
+              // facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
+              // twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           </View>
         );
