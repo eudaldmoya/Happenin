@@ -27,6 +27,36 @@ export default function SearchScreen() {
     suggestEvent().then(setEvent);
   }, []);
 
+  const getInstagramUrl = (eventSug) => {
+    let instagramUrl = '';
+    if (
+      eventSug?._embedded?.attractions?.[0]?.externalLinks?.instagram?.[0]?.url
+    ) {
+      instagramUrl = eventSug._embedded.attractions[0].externalLinks.instagram[0].url;
+    }
+    return instagramUrl;
+  };
+
+  const getFacebookUrl = (eventSug) => {
+    let facebookUrl = '';
+    if (
+      eventSug?._embedded?.attractions?.[0]?.externalLinks?.facebook?.[0]?.url
+    ) {
+      facebookUrl = eventSug._embedded.attractions[0].externalLinks.facebook[0].url;
+    }
+    return facebookUrl;
+  };
+
+  const getTwitterUrl = (eventSug) => {
+    let twitterkUrl = '';
+    if (
+      eventSug?._embedded?.attractions?.[0]?.externalLinks?.facebook?.[0]?.url
+    ) {
+      twitterkUrl = eventSug._embedded.attractions[0].externalLinks.facebook[0].url;
+    }
+    return twitterkUrl;
+  };
+
   //EVENTS BY CATEGORY
   const [categEvent, setCategEvent] = useState([]);
   const [tagStates, setTagStates] = useState({
@@ -198,6 +228,9 @@ export default function SearchScreen() {
     for (let i = 0; i < eventSug.length; i++) {
       if (i == eventSug.length - 1) {
         console.log(`${eventSug[i].name}`);
+        const instagramUrl = getInstagramUrl(eventSug[i]);
+        const facebookUrl = getFacebookUrl(eventSug[i]);
+        const twitterkUrl = getTwitterUrl(eventSug[i]);
         eventSquares.push(
           <View key={i} style={{ marginRight: 20, paddingRight: 20 }}>
             {console.log("FACEBOOK: " + eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url)}
@@ -219,13 +252,16 @@ export default function SearchScreen() {
               description={eventSug[i].info}
               url={eventSug[i].url}
               attraction={eventSug[i]._embedded.attractions[0].name}
-              // instagram={!eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url}
-              // facebook={!eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              // twitter={!eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              instagram={instagramUrl}
+              facebook={facebookUrl}
+              twitter={twitterkUrl}
             />
           </View>
         );
       } else {
+        const instagramUrl = getInstagramUrl(eventSug[i]);
+        const facebookUrl = getFacebookUrl(eventSug[i]);
+        const twitterkUrl = getTwitterUrl(eventSug[i]);
         eventSquares.push(
           <View key={i} style={{ marginRight: 20 }}>
             <EventsSquare
@@ -246,9 +282,9 @@ export default function SearchScreen() {
               description={eventSug[i].info}
               url={eventSug[i].url}
               attraction={eventSug[i]._embedded.attractions[0].name}
-              // instagram={!eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.instagram[0].url}
-              // facebook={!eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              // twitter={!eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : eventSug[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              instagram={instagramUrl}
+              facebook={facebookUrl}
+              twitter={twitterkUrl}
             />
           </View>
         );
@@ -257,6 +293,9 @@ export default function SearchScreen() {
 
     for (let i = 0; i < categEvent.length; i++) {
       if (i == categEvent.length - 1) {
+        const instagramUrl = getInstagramUrl(categEvent[i]);
+        const facebookUrl = getFacebookUrl(categEvent[i]);
+        const twitterkUrl = getTwitterUrl(categEvent[i]);
         eventSquare2.push(
           <View key={i} style={{ marginRight: 20, paddingRight: 20 }}>
             <EventsSquare
@@ -277,13 +316,16 @@ export default function SearchScreen() {
               description={categEvent[i].info}
               url={categEvent[i].url}
               attraction={categEvent[i]._embedded.attractions[0].name}
-              // instagram={!categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url}
-              // facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              // twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              instagram={instagramUrl}
+              facebook={facebookUrl}
+              twitter={twitterkUrl}
             />
           </View>
         );
       } else {
+        const instagramUrl = getInstagramUrl(categEvent[i]);
+        const facebookUrl = getFacebookUrl(categEvent[i]);
+        const twitterkUrl = getTwitterUrl(categEvent[i]);
         eventSquare2.push(
           <View key={i} style={{ marginRight: 20 }}>
             <EventsSquare
@@ -304,9 +346,9 @@ export default function SearchScreen() {
               description={categEvent[i].info}
               url={categEvent[i].url}
               attraction={categEvent[i]._embedded.attractions[0].name}
-              // instagram={!categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.instagram[0].url}
-              // facebook={!categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.facebook[0].url}
-              // twitter={!categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url ? "" : categEvent[i]._embedded.attractions[0].externalLinks.twitter[0].url}
+              instagram={instagramUrl}
+              facebook={facebookUrl}
+              twitter={twitterkUrl}
             />
           </View>
         );

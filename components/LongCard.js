@@ -5,28 +5,22 @@ import {
   Text,
   View,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import { db } from "../firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const Body = ({
-  image,
-  location,
-  city,
-  name,
-  date,
-  day, month
-}) => {
-  if (name.length >= 30) {
-    var str = name;
-    var res = str.substring(0, 30);
+const Body = ({ image, location, city, name, date }) => {
 
-    name = res + "...";
-  } else {
-    name = name;
-  }
+
+    const day = date.split("-")[2];
+    const monthNumber = date.split("-")[1];
+    const dateObj = new Date();
+    dateObj.setMonth(monthNumber - 1);
+    const month = dateObj.toLocaleString("en-US", { month: "short" });
+  
   
   return (
     <View style={styles.innerContainer}>
@@ -52,39 +46,91 @@ const Body = ({
   );
 };
 
-export default function LongCard(props) {
+export default function LongCard({
+  eventId,
+  image,
+  name,
+  location,
+  city,
+  description,
+  date,
+  url,
+  attraction,
+  instagram,
+  facebook,
+  twitter
+}) {
+  
   const navigation = useNavigation();
   const navigateToDetailScreen = () => {
     navigation.navigate("Details", {
-      eventId: props.eventId,
-      name: props.name,
-      image: props.image,
-      location: props.location,
-      city: props.city,
-      description: props.description,
-      date: props.date,
-      url: props.url,
-      attraction: props.attraction,
-      instagram: props.instagram,
-      facebook: props.facebook,
-      twitter: props.twitter,
+      eventId: eventId,
+      name: name,
+      image: image,
+      location: location,
+      city: city,
+      description: description,
+      date: date,
+      url: url,
+      attraction: attraction,
+      instagram: instagram,
+      facebook: facebook,
+      twitter: twitter,
     });
   };
 
-  if (props.image) {
-    return (
+  const storeEvent = async () => {
+    const docRef = doc(db, "Events", `${eventId}`);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      await setDoc(doc(db, "Events", eventId), {
+        name: name,
+        location: location,
+        city: city,
+        description: !description ? "" : description,
+        date: date,
+        image: image,
+        url: !url ? "" : url,
+        attraction: !attraction ? "" : attraction,
+        instagram: !instagram ? "" : instagram,
+        facebook: !facebook ? "" : facebook,
+        twitter: !twitter ? "" : twitter,
+      });
+    } else {
+      console.log("Event already saved!");
+    }
+  };
+
+  if (name.length >= 36) {
+    var str = name;
+    var res = str.substring(0, 36);
+
+    nameCut = res + "...";
+  } else if (name.length < 36) {
+    nameCut = name;
+  }
+
+  if (image) {
+    return (  
       <Pressable
         onPress={() => {
-          navigateToDetailScreen();
+          storeEvent(), navigateToDetailScreen();
         }}
       >
+        {console.log(image)}
         <ImageBackground
           style={styles.backImg}
           imageStyle={{ borderRadius: 20 }}
-          src={props.image} 
+          src={image}
         >
           <View style={styles.filter}></View>
-          <Body {...props} />
+          <Body
+            image={image}
+            location={location}
+            city={city}
+            name={nameCut}
+            date={date}
+          />
         </ImageBackground>
       </Pressable>
     );
@@ -92,7 +138,7 @@ export default function LongCard(props) {
     return (
       <Pressable
         onPress={() => {
-          navigateToDetailScreen();
+          storeEvent(), navigateToDetailScreen();
         }}
       >
         <ImageBackground
@@ -101,7 +147,13 @@ export default function LongCard(props) {
           source={require("../assets/placeholder.png")}
         >
           <View style={styles.filter}></View>
-          <Body {...props} />
+          <Body
+            image={image}
+            location={location}
+            city={city}
+            name={nameCut}
+            date={date}
+          />
         </ImageBackground>
       </Pressable>
     );

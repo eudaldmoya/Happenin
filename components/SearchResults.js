@@ -4,7 +4,7 @@ import { searchEvents } from "../api";
 import LongCard from "./LongCard";
 
 const SearchResults = ({ searchText }) => {
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(null);
 
   useEffect(() => {
     if (searchText) {
@@ -13,8 +13,9 @@ const SearchResults = ({ searchText }) => {
   }, [searchText]);
 
   let emptyVenue = "";
+ 
 
-  if (!searchResults || searchResults === null || searchResults === undefined) {
+  if (!searchResults || searchResults === null || searchResults === undefined || searchResults === 0) {
     return (
       <View style={styles.results}>
         <View style={styles.resultsText}>
@@ -25,38 +26,34 @@ const SearchResults = ({ searchText }) => {
       </View>
     );
   } else {
-    const getDayNumber = (dateString) => {
-      const date = new Date(dateString);
-      return date.getDate();
-    };
-
-    const getMonthName = (dateString) => {
-      const date = new Date(dateString);
-      return date.toLocaleString("default", { month: "short" }).toUpperCase();
-    };
-
     return (
       <View style={styles.results}>
+        {console.log(searchResults[0]._embedded.attractions[0].name)}
         <View style={styles.resultsText}>
           <Text>Showing results for </Text>
           <Text style={styles.resultsBold}>"{searchText}"</Text>
         </View>
         <FlatList
           data={searchResults}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
+          showsVerticalScrollIndicator={false} 
+          renderItem={({ item }) => 
+            (      
             <LongCard
+              eventId={item.id}
               image={item.images[0].url}
               name={item.name}
               location={
-                item._embedded?.venues?.[0]?.name
-                  ? item._embedded?.venues?.[0]?.name +
-                    ', ' +
-                    item._embedded?.venues?.[0]?.city.name
-                  : ''
+                item._embedded.venues[0].name
+                  ? item._embedded.venues[0].name : ''
               }
-              day={getDayNumber(item.dates.start.localDate)}
-              month={getMonthName(item.dates.start.localDate)}
+              city={item._embedded.venues[0].city.name? item._embedded.venues[0].city.name : ''}
+              date={item.dates.start.localDate}
+            description={item.info ? item.info : ''}
+            url={item.url}
+            attraction={item._embedded.attractions[0].name}
+            instagram={item._embedded.attractions[0].externalLinks.instagram[0].url}
+            facebook={item._embedded.attractions[0].externalLinks.facebook[0].url}
+            twitter={item._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           )}
           ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}
