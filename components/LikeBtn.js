@@ -31,6 +31,7 @@ const LikeBtn = ({
   instagram,
   facebook,
   twitter,
+  size,
 }) => {
   const [isLiked, setIsLiked] = useState(null);
   const user = getAuth().currentUser.uid;
@@ -116,7 +117,7 @@ const LikeBtn = ({
     <Pressable onPress={toggleSwitch}>
       <AntDesign
         name={isLiked ? "heart" : "hearto"}
-        size={24}
+        size={size}
         color="#67E5BF"
         style={styles.likeButton}
       />

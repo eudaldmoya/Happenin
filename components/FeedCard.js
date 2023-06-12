@@ -26,7 +26,7 @@ export default function FeedCard({
         />
       </View>
       <View style={styles.buttons}>
-        <LikeBtn eventId={eventId}/>
+        <LikeBtn eventId={eventId} size={24}/>
         <JoinBtn eventId={eventId}/>
       </View>
     </View>

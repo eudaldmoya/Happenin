@@ -1,8 +1,6 @@
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { initializeApp } from "firebase/app";
 import Constants from "expo-constants";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -11,14 +9,12 @@ import {
 import { useState } from "react";
 import {
   Alert,
-  Button,
-  ScrollView,
+  Image,
   StyleSheet,
   Text,
   TextInput,
-  View,
   TouchableOpacity,
-  Image,
+  View,
 } from "react-native";
 import { app } from "../firebaseConfig";
 
@@ -26,6 +22,8 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [createdMessage, setCreatedMessage] = useState("");
 
   const auth = getAuth(app);
 
@@ -35,6 +33,12 @@ export default function LoginScreen() {
         console.log("Account created");
         const user = userCredential.user;
         console.log(user);
+        setCreatedMessage(
+          "Accounts created successfully!\nNow sign in with your credentials, please"
+        );
+        setTimeout(() => {
+          setCreatedMessage("");
+        }, 5000);
       })
       .catch((error) => {
         Alert.alert(error.message);
@@ -52,6 +56,10 @@ export default function LoginScreen() {
       })
       .catch((error) => {
         console.log(error);
+        setErrorMessage("Invalid email or password");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       });
   };
   return (
@@ -98,6 +106,16 @@ export default function LoginScreen() {
           <Text style={styles.signUpText}>SIGN UP</Text>
         </TouchableOpacity>
       </View>
+      {errorMessage ? (
+        <View style={styles.messageParent}>
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
+        </View>
+      ) : null}
+      {createdMessage ? (
+        <View style={styles.messageParent}>
+          <Text style={styles.createdMessage}>{createdMessage}</Text>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -144,13 +162,13 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingLeft: 10,
     paddingBottom: 2.5,
-    color: 'white',
-    width: '100%',
+    color: "white",
+    width: "100%",
   },
   signInButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "white",
     borderRadius: 50,
     marginLeft: 50,
@@ -158,12 +176,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   signUpButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "none",
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: "white",
     borderRadius: 50,
     borderRadius: 50,
     marginLeft: 50,
@@ -173,12 +191,12 @@ const styles = StyleSheet.create({
   signInText: {
     fontSize: 16,
     color: "#67E5BF",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   signUpText: {
     color: "white",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   buttonView: {
     gap: 20,
@@ -187,5 +205,25 @@ const styles = StyleSheet.create({
     paddingLeft: "10%",
     paddingRight: "15%",
     marginBottom: "10%",
+  },
+  messageParent: {
+    position: "absolute",
+    top: -350,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  errorMessage: {
+    textAlign: 'center',
+    color: "red",
+    fontWeight: 'bold',
+  },
+  createdMessage: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: "white",
+    fontWeight: 'bold',
   },
 });

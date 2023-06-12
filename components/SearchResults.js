@@ -51,9 +51,9 @@ const SearchResults = ({ searchText }) => {
             description={item.info ? item.info : ''}
             url={item.url}
             attraction={item._embedded.attractions[0].name}
-            instagram={item._embedded.attractions[0].externalLinks.instagram[0].url}
-            facebook={item._embedded.attractions[0].externalLinks.facebook[0].url}
-            twitter={item._embedded.attractions[0].externalLinks.twitter[0].url}
+            // instagram={item._embedded.attractions[0].externalLinks.instagram[0].url}
+            // facebook={item._embedded.attractions[0].externalLinks.facebook[0].url}
+            // twitter={item._embedded.attractions[0].externalLinks.twitter[0].url}
             />
           )}
           ItemSeparatorComponent={() => <View style={{ padding: 10 }} />}

@@ -1,17 +1,20 @@
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import Constants from "expo-constants";
+import React, { useEffect } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   Image,
-  ScrollView,
-  Pressable,
   Linking,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import React from "react";
+import LikeBtn from "../components/LikeBtn";
+import Avatar from "../components/Avatar";
 import JoinBtn from "../components/JoinBtn";
-import { Entypo } from "@expo/vector-icons";
 
-export default function EventDetailScreen({ route }) {
+export default function EventDetailScreen({ navigation, route }) {
   console.log(route.params);
   const {
     eventId,
@@ -67,72 +70,97 @@ export default function EventDetailScreen({ route }) {
   return (
     <View style={styles.container}>
       {/* <JoinBtn eventId={eventId}></JoinBtn> */}
+      <View style={styles.topBar}>
+        <Pressable onPress={() => navigation.goBack()}>
+          <MaterialIcons name="keyboard-arrow-left" size={50} color="#67E5BF" />
+        </Pressable>
+        <LikeBtn
+          eventId={eventId}
+          image={image}
+          name={name}
+          location={location}
+          city={city}
+          description={description}
+          date={date}
+          url={url}
+          attraction={attraction}
+          instagram={instagram}
+          facebook={facebook}
+          twitter={twitter}
+          size={30}
+        />
+      </View>
       <View style={styles.imageParent}>
         <Image style={styles.image} src={image} />
       </View>
       <ScrollView>
-        <View style={styles.content}>
-          <View style={styles.container}>
-            <View style={styles.peopleGoing}>
-              <Text style={styles.goingText}>Going</Text>
-            </View>
+        <View style={styles.containerGoingParent}>
+          <View style={styles.containerGoing}>
             <JoinBtn eventId={eventId}></JoinBtn>
           </View>
-          <View style={styles.eventDetail}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.detail}>
-              {location}, {city}
-            </Text>
-            <Text style={styles.detail}>
-              {day} {monthName}, {year}
-            </Text>
-          </View>
-          <View>
-            {!hasHappened ? (
-              <View style={styles.ticketsContainer}>
-                <View style={styles.ticketsText}>
-                  <Text style={styles.ticketsTitle}>Tickets</Text>
-                  <Text style={styles.ticketsTextSmall}>On sale!</Text>
+        </View>
+        <View style={styles.detailContent}>
+          <View style={styles.content}>
+            <View style={styles.eventDetail}>
+              <Text style={styles.name}>{name}</Text>
+              <Text style={styles.detail}>
+                {location}, {city}
+              </Text>
+              <Text style={styles.detail}>
+                {day} {monthName}, {year}
+              </Text>
+            </View>
+            <View>
+              {!hasHappened ? (
+                <View style={styles.ticketsContainer}>
+                  <View style={styles.ticketsText}>
+                    <Text style={styles.ticketsTitle}>Tickets</Text>
+                    <Text style={styles.ticketsTextSmall}>On sale!</Text>
+                  </View>
+                  <Pressable onPress={buyTickets} style={styles.ticketsButton}>
+                    <Text style={styles.ticketsButtonText}>BUY HERE</Text>
+                  </Pressable>
                 </View>
-                <Pressable onPress={buyTickets} style={styles.ticketsButton}>
-                  <Text style={styles.ticketsButtonText}>BUY HERE</Text>
-                </Pressable>
-              </View>
+              ) : (
+                <View style={styles.ticketsContainer}>
+                  <View style={styles.ticketsText}>
+                    <Text style={styles.ticketsTitle}>Tickets</Text>
+                    <Text style={styles.ticketsTextSmall}>Not available</Text>
+                  </View>
+                </View>
+              )}
+            </View>
+            {description === "" || !description ? (
+              console.log("no description")
             ) : (
-              <View style={styles.ticketsContainer}>
-                <View style={styles.ticketsText}>
-                  <Text style={styles.ticketsTitle}>Tickets</Text>
-                  <Text style={styles.ticketsTextSmall}>Not available</Text>
-                </View>
+              <View style={styles.eventDetail}>
+                <Text style={styles.name}>Description</Text>
+                <Text style={styles.detail}>{description}</Text>
               </View>
             )}
-          </View>
-          {description === "" || !description ? (
-            console.log("no description")
-          ) : (
-            <View style={styles.eventDetail}>
-              <Text style={styles.name}>Description</Text>
-              <Text style={styles.detail}>{description}</Text>
-            </View>
-          )}
 
-          <View>
-            <View style={styles.ticketsContainer}>
-              <View style={styles.ticketsText}>
-                <Text style={styles.ticketsTitle}>{attraction}</Text>
-                <Text style={styles.ticketsTextSmall}>
-                  Follow the official accounts
-                </Text>
+            <View>
+              <View style={styles.ticketsContainer}>
+                <View style={styles.ticketsText}>
+                  <Text style={styles.ticketsTitle}>{attraction}</Text>
+                  <View style={styles.bottomLine}>
+                    <Text style={styles.ticketsTextSmall}>
+                      Follow the official accounts
+                    </Text>
+                    <View style={styles.socials}>
+                      <Pressable onPress={openInstagram}>
+                        <Entypo name="instagram" size={24} color="#67E5BF" />
+                      </Pressable>
+                      <Pressable onPress={openFacebook}>
+                        <Entypo name="facebook" size={24} color="#67E5BF" />
+                      </Pressable>
+                      <Pressable onPress={openTwitter}>
+                        <Entypo name="twitter" size={24} color="#67E5BF" />
+                      </Pressable>
+                    </View>
+                  </View>
+                </View>
               </View>
-              <Pressable onPress={openInstagram}>
-                <Entypo name="instagram" size={24} color="#67E5BF" />
-              </Pressable>
-              <Pressable onPress={openFacebook}>
-                <Entypo name="facebook" size={24} color="#67E5BF" />
-              </Pressable>
-              <Pressable onPress={openTwitter}>
-                <Entypo name="twitter" size={24} color="#67E5BF" />
-              </Pressable>
             </View>
           </View>
         </View>
@@ -144,6 +172,19 @@ export default function EventDetailScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
+  },
+  topBar: {
+    width: "100%",
+    position: "absolute",
+    paddingTop: Constants.statusBarHeight,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    top: 10,
+    zIndex: 3,
   },
   scrollView: {
     zIndex: 1,
@@ -156,14 +197,21 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "black",
+    height: "40%",
+    aspectRatio: 1024 / 576,
   },
   image: {
     aspectRatio: 1024 / 576,
     resizeMode: "contain",
     width: "125%",
+    opacity: 0.66,
+  },
+  detailContent: {
+    paddingTop: 0,
   },
   content: {
-    marginTop: "60%",
+    marginTop: 300,
     borderRadius: 20,
     backgroundColor: "white",
     padding: 40,
@@ -202,5 +250,55 @@ const styles = StyleSheet.create({
     color: "#67E5BF",
     fontSize: 14,
     fontWeight: 500,
+  },
+  bottomLine: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    width: "95%",
+  },
+  socials: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+  },
+  containerGoingParent: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    zIndex: 4,
+    position: 'absolute',
+    top: 300,
+  },
+  containerGoing: {
+    backgroundColor: "white",
+    borderRadius: 50,
+    display: "flex",
+    flexDirection: "row",
+    top: -25,
+    padding: 5,
+  },
+  peopleGoing: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  goingText: {
+    paddingLeft: 5,
+    paddingRight: 25,
+    fontWeight: "500",
+    color: "#67E5BF",
+  },
+  containerNumber: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 10,
+    gap: -10,
   },
 });

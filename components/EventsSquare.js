@@ -103,6 +103,7 @@ export default function EventsSquare({
             instagram={instagram}
             facebook={facebook}
             twitter={twitter}
+            size={24}
           />
           <Text style={styles.title}>{nameCut}</Text>
         </ImageBackground>

@@ -58,7 +58,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Bottom Nav" component={BottomTabNavigator} options={{ headerShown: false }}/>
-        <Stack.Screen name="Details" component={EventDetailScreen} />
+        <Stack.Screen name="Details" component={EventDetailScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
