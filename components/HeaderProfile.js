@@ -18,10 +18,13 @@ export default function HeaderProfile({ user }) {
         setUserData({
           name: docSnap.data().username,
           image: docSnap.data().image,
-          age: docSnap.data().age,
+          age: docSnap.data().age + ", ",
           location: docSnap.data().location
         });
       } else {
+        setUserData({
+          name: "",
+        });
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
       }
@@ -34,11 +37,11 @@ export default function HeaderProfile({ user }) {
   } else {
   return (
     <View style={styles.container}>
-      <AvatarProfile username={userData.name} />
+      <AvatarProfile username={userData.name ? userData.name : ""} />
       <View style={styles.texts}>
         <Text style={styles.name}>{userData.name}</Text>
         <Text style={styles.info}>
-          {userData.age}, {userData.location}
+          {userData.age ? userData.age : ""}{userData.location ? userData.location : ""}
         </Text>
       </View>
     </View>
